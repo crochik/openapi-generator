@@ -23,10 +23,10 @@ part '{{classFilename}}.g.dart';
   disallowUnrecognizedKeys: false,
   explicitToJson: true,
 )
-class {{{classname}}} {
+class {{{classname}}} {{#parent}}extends {{{.}}} {{/parent}}{
 {{>serialization/json_serializable/dart_constructor}}
 
-{{#vars}}
+{{#vendorExtensions.x-self-only-props}}
   {{#description}}
       /// {{{description}}}
   {{/description}}
@@ -65,10 +65,8 @@ class {{{classname}}} {
   {{^required}}
   {{#finalProperties}}final {{/finalProperties}}{{{datatypeWithEnum}}}? {{{name}}};
   {{/required}}
-
-
-
-{{/vars}}
+  
+{{/vendorExtensions.x-self-only-props}}
 
   {{#useEquatable}}
     bool operator ==(Object other) {
@@ -114,7 +112,20 @@ class {{{classname}}} {
     {{/vars}}
   {{/useEquatable}}
 
-  factory {{{classname}}}.fromJson(Map<String, dynamic> json) => _${{{classname}}}FromJson(json);
+  factory {{{classname}}}.fromJson(Map<String, dynamic> json) {
+{{#discriminator}}
+    switch (json['{{discriminator.propertyBaseName}}']) {
+{{#discriminator.mappedModels}}
+        case '{{mappingName}}':
+            return {{modelName}}.fromJson(json);
+{{/discriminator.mappedModels}}
+        default:
+            break;
+    }
+{{/discriminator}}
+
+    return _${{{classname}}}FromJson(json);
+  }
 
   Map<String, dynamic> toJson() => _${{{classname}}}ToJson(this);
 
@@ -124,7 +135,7 @@ class {{{classname}}} {
   }
 
 }
-{{#vars}}
+{{#vendorExtensions.x-self-only-props}}
     {{#isEnum}}
         {{^isContainer}}
 
@@ -137,4 +148,4 @@ class {{{classname}}} {
             {{/mostInnerItems}}
         {{/isContainer}}
     {{/isEnum}}
-{{/vars}}
+{{/vendorExtensions.x-self-only-props}}
