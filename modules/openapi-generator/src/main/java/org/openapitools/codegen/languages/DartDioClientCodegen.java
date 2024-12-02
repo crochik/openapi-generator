@@ -588,10 +588,10 @@ public class DartDioClientCodegen extends AbstractDartCodegen {
     @Override
     public Map<String, ModelsMap> postProcessAllModels(Map<String, ModelsMap> objs) {
         objs = super.postProcessAllModels(objs);
-        if (SERIALIZATION_LIBRARY_BUILT_VALUE.equals(library)) {
+        // if (SERIALIZATION_LIBRARY_BUILT_VALUE.equals(library)) {
             adaptToDartInheritance(objs);
             syncRootTypesWithInnerVars(objs);
-        }
+        // }
 
         // loop through models to update the imports
         for (ModelsMap entry : objs.values()) {

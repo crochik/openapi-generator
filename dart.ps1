@@ -11,5 +11,6 @@
 Remove-Item -Recurse -Path ./out/dart -Force 
 mkdir -p out/dart
 
-./run-in-docker.sh generate -i sample.json -o /gen/out/dart -g dart-dio -c dart.json --global-property debugModels=true --skip-validate-spec -t template 
+./run-in-docker.sh generate -i sample.json -o /gen/out/dart -g dart-dio  --global-property debugModels=true --skip-validate-spec -t template -c dart.json
+# 
 # ./run-in-docker.sh generate -i sample.json -o /gen/out/typescript -g typescript-fetch --global-property debugModels=true --skip-validate-spec -t template-ts 

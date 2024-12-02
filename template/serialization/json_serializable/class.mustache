@@ -26,11 +26,7 @@ part '{{classFilename}}.g.dart';
 class {{{classname}}} {{#parent}}extends {{{.}}} {{/parent}}{
 {{>serialization/json_serializable/dart_constructor}}
 
-{{#vars}}
-  /**
-  {{{this}}}
-  **/
-
+{{#vendorExtensions.x-self-only-props}}
   {{#description}}
       /// {{{description}}}
   {{/description}}
@@ -69,7 +65,8 @@ class {{{classname}}} {{#parent}}extends {{{.}}} {{/parent}}{
   {{^required}}
   {{#finalProperties}}final {{/finalProperties}}{{{datatypeWithEnum}}}? {{{name}}};
   {{/required}}
-{{/vars}}
+  
+{{/vendorExtensions.x-self-only-props}}
 
   {{#useEquatable}}
     bool operator ==(Object other) {
@@ -138,7 +135,7 @@ class {{{classname}}} {{#parent}}extends {{{.}}} {{/parent}}{
   }
 
 }
-{{#vars}}
+{{#vendorExtensions.x-self-only-props}}
     {{#isEnum}}
         {{^isContainer}}
 
@@ -151,4 +148,4 @@ class {{{classname}}} {{#parent}}extends {{{.}}} {{/parent}}{
             {{/mostInnerItems}}
         {{/isContainer}}
     {{/isEnum}}
-{{/vars}}
+{{/vendorExtensions.x-self-only-props}}
