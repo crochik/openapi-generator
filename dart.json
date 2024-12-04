@@ -1,0 +1,6 @@
+{
+
+    "disallowAdditionalPropertiesIfNotPresent": false,
+    "legacyDiscriminatorBehavior": false,
+    "serializationLibrary": "json_serializable"
+}
