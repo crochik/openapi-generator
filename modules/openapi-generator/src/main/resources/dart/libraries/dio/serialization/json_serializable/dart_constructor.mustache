@@ -1,13 +1,14 @@
   /// Returns a new [{{{classname}}}] instance.
   {{{classname}}}({
+    // self
   {{#vendorExtensions.x-self-only-props}}
-
     {{!
         A field is required in Dart when it is
         required && !defaultValue in OAS
     }}
     {{#required}}{{^defaultValue}}required {{/defaultValue}}{{/required}} this.{{{name}}}{{#defaultValue}} = {{#isEnum}}{{^isContainer}}const {{{enumName}}}._({{/isContainer}}{{/isEnum}}{{{defaultValue}}}{{#isEnum}}{{^isContainer}}){{/isContainer}}{{/isEnum}}{{/defaultValue}},
   {{/vendorExtensions.x-self-only-props}}
+    // parent
   {{#vendorExtensions.x-ancestor-only-props}}
     {{#required}}{{^defaultValue}}required {{/defaultValue}}{{/required}}{{{datatypeWithEnum}}}{{^required}}?{{/required}} {{{name}}}{{#defaultValue}} = {{#isEnum}}{{^isContainer}}const {{{enumName}}}._({{/isContainer}}{{/isEnum}}{{{defaultValue}}}{{#isEnum}}{{^isContainer}}){{/isContainer}}{{/isEnum}}{{/defaultValue}},
   {{/vendorExtensions.x-ancestor-only-props}}

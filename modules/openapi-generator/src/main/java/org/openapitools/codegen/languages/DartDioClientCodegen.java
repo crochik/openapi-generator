@@ -480,6 +480,16 @@ public class DartDioClientCodegen extends AbstractDartCodegen {
 
                 allPureClasses.add(key);
             }
+
+            // hack to handle models that for some reason didn't get a parent 
+            if (isChild && cm.getParent()==null &&  cm.getParentModel()==null && cm.allOf!=null && cm.allOf.size()==1) {
+                Iterator<String> iterator = cm.allOf.iterator();
+                if (iterator.hasNext()) {
+                    String firstElement = iterator.next();
+                    cm.parent = firstElement;
+                    cm.setParentModel(allModels.get(firstElement));
+                }                
+            }
         }
 
         // handle impure models
