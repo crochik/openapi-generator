@@ -159,10 +159,8 @@ public class DartDioClientCodegen extends AbstractDartCodegen {
             LOGGER.debug("Serialization library not set, using default {}", SERIALIZATION_LIBRARY_DEFAULT);
         }
         setLibrary(additionalProperties.get(CodegenConstants.SERIALIZATION_LIBRARY).toString());
-        if (SERIALIZATION_LIBRARY_BUILT_VALUE.equals(library)) {
-            this.setLegacyDiscriminatorBehavior(false);
-        }
-
+        this.setLegacyDiscriminatorBehavior(false);
+        
         if (!additionalProperties.containsKey(DATE_LIBRARY)) {
             additionalProperties.put(DATE_LIBRARY, DATE_LIBRARY_DEFAULT);
             LOGGER.debug("Date library not set, using default {}", DATE_LIBRARY_DEFAULT);
@@ -482,6 +480,16 @@ public class DartDioClientCodegen extends AbstractDartCodegen {
 
                 allPureClasses.add(key);
             }
+
+            // hack to handle models that for some reason didn't get a parent 
+            if (isChild && cm.getParent()==null &&  cm.getParentModel()==null && cm.allOf!=null && cm.allOf.size()==1) {
+                Iterator<String> iterator = cm.allOf.iterator();
+                if (iterator.hasNext()) {
+                    String firstElement = iterator.next();
+                    cm.parent = firstElement;
+                    cm.setParentModel(allModels.get(firstElement));
+                }                
+            }
         }
 
         // handle impure models
@@ -582,15 +590,53 @@ public class DartDioClientCodegen extends AbstractDartCodegen {
                 }
             }
         }
+        
         return sub;
     }
 
     @Override
     public Map<String, ModelsMap> postProcessAllModels(Map<String, ModelsMap> objs) {
         objs = super.postProcessAllModels(objs);
-        if (SERIALIZATION_LIBRARY_BUILT_VALUE.equals(library)) {
-            adaptToDartInheritance(objs);
-            syncRootTypesWithInnerVars(objs);
+
+        adaptToDartInheritance(objs);
+        syncRootTypesWithInnerVars(objs);
+
+        /**
+         * Filter discriminator mapping
+         * Since the same instance of the discriminator is shared by all descendent models,
+         *  create a shallow parallel one for each model with just the models that directly extend it
+         * Created vendor extension instead of replacing the instance on each model to avoid breaking exisiting code
+         * There must be a a better place or a simpler way but... 
+         **/
+        for (ModelsMap entry : objs.values()) {
+            for (ModelMap mo : entry.getModels()) {
+                CodegenModel cm = mo.getModel();
+                CodegenDiscriminator discriminator = cm.discriminator;
+                
+                if (discriminator!=null && discriminator.getMappedModels()!=null && !discriminator.getIsEnum()) {
+                    CodegenDiscriminator newDiscriminator = new CodegenDiscriminator();
+                    newDiscriminator.setMapping(new HashMap<>());
+                    newDiscriminator.setPropertyName(discriminator.getPropertyName());
+                    newDiscriminator.setPropertyGetter(discriminator.getPropertyGetter());
+                    newDiscriminator.setPropertyType(discriminator.getPropertyType());
+                    cm.getVendorExtensions().put("x-discriminator", newDiscriminator);
+
+                    for (MappedModel mm: discriminator.getMappedModels()) {
+                        CodegenModel model = mm.getModel();
+                        if (model.allOf.contains(cm.getName())) {
+                            // it is direct descendent, add to mappping 
+                            newDiscriminator.getMapping().put(mm.getMappingName(), mm.getModelName());
+                            CodegenDiscriminator.MappedModel cmm = new CodegenDiscriminator.MappedModel(mm.getMappingName(), mm.getModelName());
+                            cmm.setModel(mm.getModel());
+                            newDiscriminator.getMappedModels().add(cmm);
+                        }
+                    }
+
+                    // TODO: filter out imports for other models not used 
+                    // but most likely there is also a better place for that as well 
+                    // ...
+                }
+            }
         }
 
         // loop through models to update the imports
