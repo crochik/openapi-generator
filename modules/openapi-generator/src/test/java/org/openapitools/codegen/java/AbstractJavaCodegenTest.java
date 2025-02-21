@@ -965,4 +965,11 @@ public class AbstractJavaCodegenTest {
         Assert.assertEquals(codegen.removeAnnotations("List<@Valid Pet>"), "List<Pet>");
     }
 
+    @Test(description = "test generated example values for string properties")
+    public void testGeneratedExampleValues() {
+        final OpenAPI openAPI = FLATTENED_SPEC.get("3_0/spring/date-time-parameter-types-for-testing");
+        codegen.setOpenAPI(openAPI);
+        DateSchema dateSchema = (DateSchema) openAPI.getPaths().get("/thingy/{date}").getPost().getParameters().get(0).getSchema();
+        assertThat(codegen.escapeQuotationMark(codegen.toExampleValue(dateSchema))).isEqualTo("2021-01-01");
+    }
 }

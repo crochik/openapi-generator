@@ -38,6 +38,7 @@ import org.openapitools.codegen.CodegenConfig;
 import org.openapitools.codegen.CodegenConstants;
 import org.openapitools.codegen.CodegenModel;
 import org.openapitools.codegen.CodegenOperation;
+import org.openapitools.codegen.CodegenParameter;
 import org.openapitools.codegen.CodegenProperty;
 import org.openapitools.codegen.CodegenType;
 import org.openapitools.codegen.SupportingFile;
@@ -107,6 +108,10 @@ public class RustClientCodegen extends AbstractRustCodegen implements CodegenCon
     protected String modelDocPath = "docs/";
     protected String apiFolder = "src/apis";
     protected String modelFolder = "src/models";
+    // The API has at least one UUID type.
+    // If the API does not contain any UUIDs we do not need depend on the `uuid` crate
+    private boolean hasUUIDs = false;
+
 
     @Override
     public CodegenType getTag() {
@@ -250,6 +255,7 @@ public class RustClientCodegen extends AbstractRustCodegen implements CodegenCon
         supportedLibraries.put(HYPER0X_LIBRARY, "HTTP client: Hyper (v0.x).");
         supportedLibraries.put(REQWEST_LIBRARY, "HTTP client: Reqwest.");
         supportedLibraries.put(REQWEST_TRAIT_LIBRARY, "HTTP client: Reqwest (trait based).");
+
 
         CliOption libraryOption = new CliOption(CodegenConstants.LIBRARY, "library template (sub-template) to use.");
         libraryOption.setEnum(supportedLibraries);
@@ -603,11 +609,42 @@ public class RustClientCodegen extends AbstractRustCodegen implements CodegenCon
     }
 
     @Override
+    public void postProcessParameter(CodegenParameter parameter) {
+        super.postProcessParameter(parameter);
+        // in order to avoid name conflicts, we map parameters inside the functions
+        String inFunctionIdentifier = "";
+        if (this.useSingleRequestParameter) {
+            inFunctionIdentifier = "params." + parameter.paramName;
+        } else {
+            if (parameter.paramName.startsWith("r#")) {
+                inFunctionIdentifier = "p_" + parameter.paramName.substring(2);
+            } else {
+                inFunctionIdentifier = "p_" + parameter.paramName;
+            }
+        }
+        if (!parameter.vendorExtensions.containsKey(this.VENDOR_EXTENSION_PARAM_IDENTIFIER)) { // allow to overwrite this value
+            parameter.vendorExtensions.put(this.VENDOR_EXTENSION_PARAM_IDENTIFIER, inFunctionIdentifier);
+        }
+    }
+
+    @Override
     public OperationsMap postProcessOperationsWithModels(OperationsMap objs, List<ModelMap> allModels) {
         OperationMap objectMap = objs.getOperations();
         List<CodegenOperation> operations = objectMap.getOperation();
         for (CodegenOperation operation : operations) {
             if (operation.pathParams != null && operation.pathParams.size() > 0) {
+
+                // For types with `isAnyType` we assume it's a `serde_json::Value` type.
+                // However for path, query, and headers it's unlikely to be JSON so we default to `String`.
+                // Note that we keep the default `serde_json::Value` for body parameters.
+                for (var param : operation.allParams) {
+                    if (param.isAnyType && (param.isPathParam || param.isQueryParam || param.isHeaderParam)) {
+                        param.dataType = "String";
+                        param.isPrimitiveType = true;
+                        param.isString = true;
+                    }
+                }
+
                 for (var pathParam : operation.pathParams) {
                     if (!pathParam.baseName.contains("-")) {
                         continue;
@@ -621,6 +658,13 @@ public class RustClientCodegen extends AbstractRustCodegen implements CodegenCon
                 }
             }
 
+            for (var param : operation.allParams) {
+                if (!hasUUIDs && param.isUuid) {
+                    hasUUIDs = true;
+                    break;
+                }
+            }
+
             // http method verb conversion, depending on client library (e.g. Hyper: PUT => Put, Reqwest: PUT => put)
             if (HYPER_LIBRARY.equals(getLibrary())) {
                 operation.httpMethod = StringUtils.camelize(operation.httpMethod.toLowerCase(Locale.ROOT));
@@ -631,6 +675,10 @@ public class RustClientCodegen extends AbstractRustCodegen implements CodegenCon
             // add support for single request parameter using x-group-parameters
             if (!operation.vendorExtensions.containsKey("x-group-parameters") && useSingleRequestParameter) {
                 operation.vendorExtensions.put("x-group-parameters", Boolean.TRUE);
+            }
+
+            if (operation.producesTextPlain() && "String".equals(operation.returnType)) {
+                operation.vendorExtensions.put("x-supports-plain-text", Boolean.TRUE);
             }
 
             // update return type to conform to rust standard
@@ -684,7 +732,41 @@ public class RustClientCodegen extends AbstractRustCodegen implements CodegenCon
             }*/
         }
 
+        if (!hasUUIDs) {
+            for (var map : allModels) {
+                CodegenModel m = map.getModel();
+                if (m.getIsUuid() || hasUuidInProperties(m.vars)) {
+                    hasUUIDs = true;
+                    LOGGER.debug("found UUID in model: " + m.name);
+                    break;
+                }
+            }
+        }
+
+        this.additionalProperties.put("hasUUIDs", hasUUIDs);
         return objs;
+    }
+
+    /**
+     * Recursively searches for a model's properties for a UUID type field.
+     */
+    private boolean hasUuidInProperties(List<CodegenProperty> properties) {
+        for (CodegenProperty property : properties) {
+            if (property.isUuid) {
+                return true;
+            }
+            // Check nested properties
+            if (property.items != null && hasUuidInProperties(Collections.singletonList(property.items))) {
+                return true;
+            }
+            if (property.additionalProperties != null && hasUuidInProperties(Collections.singletonList(property.additionalProperties))) {
+                return true;
+            }
+            if (property.vars != null && hasUuidInProperties(property.vars)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -699,7 +781,7 @@ public class RustClientCodegen extends AbstractRustCodegen implements CodegenCon
     @Override
     protected ImmutableMap.Builder<String, Lambda> addMustacheLambdas() {
         return super.addMustacheLambdas()
-                // Convert variable names to lifetime names. 
+                // Convert variable names to lifetime names.
                 // Generally they are the same, but `#` is not valid in lifetime names.
                 // Rust uses `r#` prefix for variables that are also keywords.
                 .put("lifetimeName", new ReplaceAllLambda("^r#", "r_"));

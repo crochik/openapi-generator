@@ -229,7 +229,7 @@ public class JavaClientCodegenTest {
         configAssert.assertValue(CodegenConstants.MODEL_PACKAGE, codegen::modelPackage, "org.openapitools.client.model");
         configAssert.assertValue(CodegenConstants.API_PACKAGE, codegen::apiPackage, "org.openapitools.client.api");
         configAssert.assertValue(CodegenConstants.INVOKER_PACKAGE, codegen::getInvokerPackage, "org.openapitools.client");
-        Assertions.assertEquals(codegen.getSerializationLibrary(), JavaClientCodegen.SERIALIZATION_LIBRARY_GSON);
+        assertEquals(codegen.getSerializationLibrary(), JavaClientCodegen.SERIALIZATION_LIBRARY_GSON);
         configAssert.assertValue(JavaClientCodegen.SERIALIZATION_LIBRARY_GSON, "true");
     }
 
@@ -248,7 +248,7 @@ public class JavaClientCodegenTest {
         configAssert.assertValue(CodegenConstants.MODEL_PACKAGE, codegen::modelPackage, "xyz.yyyyy.zzzzzzz.model");
         configAssert.assertValue(CodegenConstants.API_PACKAGE, codegen::apiPackage, "xyz.yyyyy.zzzzzzz.api");
         configAssert.assertValue(CodegenConstants.INVOKER_PACKAGE, codegen::getInvokerPackage, "xyz.yyyyy.zzzzzzz.invoker");
-        Assertions.assertEquals(codegen.getSerializationLibrary(), JavaClientCodegen.SERIALIZATION_LIBRARY_GSON); // the library JavaClientCodegen.OKHTTP_GSON only supports GSON
+        assertEquals(codegen.getSerializationLibrary(), JavaClientCodegen.SERIALIZATION_LIBRARY_GSON); // the library JavaClientCodegen.OKHTTP_GSON only supports GSON
     }
 
     @Test
@@ -277,6 +277,7 @@ public class JavaClientCodegenTest {
         codegen
                 .additionalProperties()
                 .put(CodegenConstants.INVOKER_PACKAGE, "xyz.yyyyy.zzzzzzz.iiii.invoker");
+        // this REQUIRES that serialization-library is handled case-insensitively (not sure if that's intentional)
         codegen.additionalProperties().put(CodegenConstants.SERIALIZATION_LIBRARY, "JACKSON");
         codegen.additionalProperties().put(CodegenConstants.LIBRARY, JavaClientCodegen.JERSEY2);
         codegen.processOpts();
@@ -286,7 +287,7 @@ public class JavaClientCodegenTest {
         configAssert.assertValue(CodegenConstants.MODEL_PACKAGE, "xyz.yyyyy.zzzzzzz.mmmmm.model");
         configAssert.assertValue(CodegenConstants.API_PACKAGE, "xyz.yyyyy.zzzzzzz.aaaaa.api");
         configAssert.assertValue(CodegenConstants.INVOKER_PACKAGE, "xyz.yyyyy.zzzzzzz.iiii.invoker");
-        Assertions.assertEquals(codegen.getSerializationLibrary(), JavaClientCodegen.SERIALIZATION_LIBRARY_JACKSON);
+        assertEquals(codegen.getSerializationLibrary(), JavaClientCodegen.SERIALIZATION_LIBRARY_JACKSON);
     }
 
     @Test
@@ -2409,6 +2410,39 @@ public class JavaClientCodegenTest {
     }
 
     @Test
+    public void testEnumDiscriminatorDefaultValueIsNotString() {
+        final Path output = newTempFolder();
+        final OpenAPI openAPI = TestUtils.parseFlattenSpec(
+                "src/test/resources/3_0/enum_discriminator_inheritance.yaml");
+        JavaClientCodegen codegen = new JavaClientCodegen();
+        codegen.setOutputDir(output.toString());
+
+        Map<String, File> files = new DefaultGenerator().opts(new ClientOptInput().openAPI(openAPI).config(codegen))
+                .generate().stream().collect(Collectors.toMap(File::getName, Function.identity()));
+
+        Map<String, String> expectedContents = Map.of(
+                "Cat", "this.petType = PetTypeEnum.CATTY",
+                "Dog", "this.petType = PetTypeEnum.DOG",
+                "Gecko", "this.petType = PetTypeEnum.GECKO",
+                "Chameleon", "this.petType = PetTypeEnum.CAMO",
+                "MiniVan", "this.carType = CarType.MINI_VAN",
+                "CargoVan", "this.carType = CarType.CARGO_VAN",
+                "SUV", "this.carType = CarType.SUV",
+                "Truck", "this.carType = CarType.TRUCK",
+                "Sedan", "this.carType = CarType.SEDAN"
+
+        );
+        for (Map.Entry<String, String> e : expectedContents.entrySet()) {
+            String modelName = e.getKey();
+            String expectedContent = e.getValue();
+            File entityFile = files.get(modelName + ".java");
+            assertNotNull(entityFile);
+            assertThat(entityFile).content().doesNotContain("Type = this.getClass().getSimpleName();");
+            assertThat(entityFile).content().contains(expectedContent);
+        }
+    }
+
+    @Test
     public void testRestTemplateHandleURIEnum() {
         String[] expectedInnerEnumLines = new String[]{
                 "V1_SCHEMA_JSON(URI.create(\"https://example.com/v1/schema.json\"))",
@@ -3154,7 +3188,7 @@ public class JavaClientCodegenTest {
                 .setLibrary(JavaClientCodegen.RESTCLIENT)
                 .setAdditionalProperties(Map.of(
                         CodegenConstants.API_PACKAGE, "xyz.abcdef.api",
-                        CodegenConstants.USE_SINGLE_REQUEST_PARAMETER, true
+                        CodegenConstants.USE_SINGLE_REQUEST_PARAMETER, "true"
                 ))
                 .setInputSpec("src/test/resources/3_1/java/petstore.yaml")
                 .setOutputDir(output.toString().replace("\\", "/"));
@@ -3182,7 +3216,7 @@ public class JavaClientCodegenTest {
                 .setLibrary(JavaClientCodegen.RESTCLIENT)
                 .setAdditionalProperties(Map.of(
                         CodegenConstants.API_PACKAGE, "xyz.abcdef.api",
-                        CodegenConstants.USE_SINGLE_REQUEST_PARAMETER, true
+                        CodegenConstants.USE_SINGLE_REQUEST_PARAMETER, "true"
                 ))
                 .setInputSpec("src/test/resources/3_0/duplicated_operationid.yaml")
                 .setOutputDir(output.toString().replace("\\", "/"));
@@ -3217,7 +3251,7 @@ public class JavaClientCodegenTest {
                 .setLibrary(JavaClientCodegen.WEBCLIENT)
                 .setAdditionalProperties(Map.of(
                         CodegenConstants.API_PACKAGE, "xyz.abcdef.api",
-                        CodegenConstants.USE_SINGLE_REQUEST_PARAMETER, true
+                        CodegenConstants.USE_SINGLE_REQUEST_PARAMETER, "true"
                 ))
                 .setInputSpec("src/test/resources/3_1/java/petstore.yaml")
                 .setOutputDir(output.toString().replace("\\", "/"));
@@ -3227,6 +3261,35 @@ public class JavaClientCodegenTest {
         TestUtils.assertFileContains(
                 output.resolve("src/main/java/xyz/abcdef/api/PetApi.java"),
                 "public class DeletePetRequest {",
+                "DeletePetRequest(Long petId, String apiKey)",
+                "Long petId()",
+                "String apiKey()",
+                "public Mono<Void> deletePet(DeletePetRequest requestParameters) throws WebClientResponseException {",
+                "public Mono<ResponseEntity<Void>> deletePetWithHttpInfo(DeletePetRequest requestParameters) throws WebClientResponseException {",
+                "public ResponseSpec deletePetWithResponseSpec(DeletePetRequest requestParameters) throws WebClientResponseException {",
+                "public Mono<Void> deletePet(Long petId, String apiKey) throws WebClientResponseException {",
+                "public Mono<ResponseEntity<Void>> deletePetWithHttpInfo(Long petId, String apiKey) throws WebClientResponseException {",
+                "public ResponseSpec deletePetWithResponseSpec(Long petId, String apiKey) throws WebClientResponseException {"
+        );
+    }
+
+    @Test public void testWebClientWithUseSingleRequestParameter_static() {
+        final Path output = newTempFolder();
+        final CodegenConfigurator configurator = new CodegenConfigurator()
+                .setGeneratorName("java")
+                .setLibrary(JavaClientCodegen.WEBCLIENT)
+                .setAdditionalProperties(Map.of(
+                        CodegenConstants.API_PACKAGE, "xyz.abcdef.api",
+                        CodegenConstants.USE_SINGLE_REQUEST_PARAMETER, "static"
+                ))
+                .setInputSpec("src/test/resources/3_1/java/petstore.yaml")
+                .setOutputDir(output.toString().replace("\\", "/"));
+
+        new DefaultGenerator().opts(configurator.toClientOptInput()).generate();
+
+        TestUtils.assertFileContains(
+                output.resolve("src/main/java/xyz/abcdef/api/PetApi.java"),
+                "public static class DeletePetRequest {",
                 "DeletePetRequest(Long petId, String apiKey)",
                 "Long petId()",
                 "String apiKey()",
