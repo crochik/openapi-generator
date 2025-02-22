@@ -613,7 +613,9 @@ public class DartDioClientCodegen extends AbstractDartCodegen {
                 CodegenModel cm = mo.getModel();
                 CodegenDiscriminator discriminator = cm.discriminator;
                 
-                if (discriminator!=null && discriminator.getMappedModels()!=null && !discriminator.getIsEnum()) {
+                // for some reason was excluding enums?
+                // && !discriminator.getIsEnum()
+                if (discriminator!=null && discriminator.getMappedModels()!=null) {
                     CodegenDiscriminator newDiscriminator = new CodegenDiscriminator();
                     newDiscriminator.setMapping(new HashMap<>());
                     newDiscriminator.setPropertyName(discriminator.getPropertyName());
