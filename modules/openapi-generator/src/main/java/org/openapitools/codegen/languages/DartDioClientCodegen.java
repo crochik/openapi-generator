@@ -613,8 +613,6 @@ public class DartDioClientCodegen extends AbstractDartCodegen {
                 CodegenModel cm = mo.getModel();
                 CodegenDiscriminator discriminator = cm.discriminator;
                 
-                // for some reason was excluding enums?
-                // && !discriminator.getIsEnum()
                 if (discriminator!=null && discriminator.getMappedModels()!=null) {
                     CodegenDiscriminator newDiscriminator = new CodegenDiscriminator();
                     newDiscriminator.setMapping(new HashMap<>());
@@ -629,6 +627,15 @@ public class DartDioClientCodegen extends AbstractDartCodegen {
                             LOGGER.error("Couldn't get model '{}' when processing discriminator.", mm.getMappingName());
                             continue;
                         }
+
+                        // ----
+                        // TODO: replace this with something that will do it recursively
+                        // ...
+                        model.imports.add(cm.getName());
+                        model.imports.addAll(cm.allOf);
+                        model.imports.addAll(cm.oneOf);
+                        model.imports.addAll(cm.anyOf);
+                        // -----
 
                         if (model.allOf.contains(cm.getName())) {
                             // it is direct descendent, add to mappping 
@@ -649,6 +656,16 @@ public class DartDioClientCodegen extends AbstractDartCodegen {
         // loop through models to update the imports
         for (ModelsMap entry : objs.values()) {
             for (ModelMap mo : entry.getModels()) {
+                // ----
+                // TODO: recursively make sure all parent models are included
+                // ...
+                // Set<String> interfaceImports = new HashSet<String>();
+                // interfaceImports.addAll(cm.allOf);
+                // interfaceImports.addAll(cm.oneOf);
+                // interfaceImports.addAll(cm.anyOf);
+                // cm.imports.addAll(rewriteImports(interfaceImports, true));
+                // ----
+
                 CodegenModel cm = mo.getModel();
                 cm.imports = rewriteImports(cm.imports, true);
                 cm.vendorExtensions.put("x-has-vars", !cm.vars.isEmpty());
