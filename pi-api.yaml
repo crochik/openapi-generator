@@ -1,0 +1,6199 @@
+openapi: 3.0.1
+info:
+  title: ProgramInterface.com
+  description: ProgramInterface.com API client
+  contact:
+    name: ProgramInterface.com
+    url: https://www.ProgramInterface.com
+    email: programinterface@programinterface.com
+  version: 0.0.1
+servers:
+  - url: https://api.fci.cloud
+  - url: https://api.inspirenet.cloud
+paths:
+  '/rest/v1/Object/{objectType}({objectId})/EditForm':
+    get:
+      tags:
+        - Generic
+      description: Get Form to edit Object
+      operationId: GetEditForm
+      parameters:
+        - name: objectType
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Form'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Appointment({objectId})/UserAction(b1a3f1ab-0666-49a5-a3a6-ee419fc888fe)':
+    post:
+      tags:
+        - Appointment
+      description: Send Confirmation Email
+      operationId: start--Appointment--SendCustomAppointmentConfirmationEmail
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Appointment--SendCustomAppointmentConfirmationEmail--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Appointment({objectId})/UserAction(f1de146a-64a6-4895-84ac-1362613ba34c)':
+    post:
+      tags:
+        - Appointment
+      description: Send Email
+      operationId: start--Appointment--SendAppointmentConfirmationEmail
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Appointment--SendAppointmentConfirmationEmail--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Appointment({objectId})/UserAction(2e8f1aa3-6d5f-449f-8036-141782333508)':
+    post:
+      tags:
+        - Appointment
+      description: Send "I am on my way"...
+      operationId: start--Appointment--SendOMWSMS
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Appointment--SendOMWSMS--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Appointment({objectId})/UserAction(bf2ea2a0-f5b1-4781-ac85-11a001dfabfe)':
+    post:
+      tags:
+        - Appointment
+      description: Send "Upcoming appointment"...
+      operationId: start--Appointment--SendUpcomingAppointmentReminder
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Appointment--SendUpcomingAppointmentReminder--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Appointment({objectId})/UserAction(d53bd8ec-69fa-4983-9a79-831ebf904b5e)':
+    post:
+      tags:
+        - Appointment
+      description: Call
+      operationId: start--Appointment--InitiateCallWithOpenPhone
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Appointment({objectId})/UserAction(f277675f-15a9-45c5-a226-b5f5ea382252)':
+    post:
+      tags:
+        - Appointment
+      description: Send SMS message that you are on your way to the Appoointment
+      operationId: start--Appointment--InitiateOMWSMS
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Appointment--InitiateOMWSMS--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Appointment({objectId})/UserAction(853b8829-05d3-4404-ab5a-ec6db57e5f57)':
+    post:
+      tags:
+        - Appointment
+      description: Send SMS with the time and date of Upcoming Appointment
+      operationId: start--Appointment--InitiateSMSForUpcomingApppointment
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Appointment--InitiateSMSForUpcomingApppointment--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/Appointment/Filter:
+    post:
+      tags:
+        - Appointment
+      description: Filter Appointment
+      operationId: filter--Appointment
+      requestBody:
+        description: Request Filter
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/filter--Appointment--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filter--Appointment--response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/Appointment:
+    post:
+      tags:
+        - Appointment
+      description: Create Appointment
+      operationId: create--Appointment
+      requestBody:
+        description: Object to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create--Appointment--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Object/Appointment({objectId})':
+    put:
+      tags:
+        - Appointment
+      description: Update Appointment
+      operationId: update--Appointment
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: fields
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Appointment-fields'
+        - name: If-Unmodified-Since
+          in: header
+          schema:
+            type: string
+            format: date-time
+      requestBody:
+        description: Properties to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update--Appointment--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/Entity/Filter:
+    post:
+      tags:
+        - Entity
+      description: Filter Entity
+      operationId: filter--Entity
+      requestBody:
+        description: Request Filter
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/filter--Entity--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filter--Entity--response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Lead({objectId})/UserAction(90e2791a-8a3a-46af-915e-47b4ed48c159)':
+    post:
+      tags:
+        - Lead
+      description: Export to Salesforce
+      operationId: start--Lead--ExportToSalesforce
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Lead--ExportToSalesforce--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Lead({objectId})/UserAction(39df2cd6-7461-4700-be80-5ba32eb1dd7c)':
+    post:
+      tags:
+        - Lead
+      description: Send SMS
+      operationId: start--Lead--SendCustomSMS
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Lead--SendCustomSMS--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Lead({objectId})/UserAction(0522eac0-e45a-4b23-9143-431691e4d559)':
+    post:
+      tags:
+        - Lead
+      description: Edit Next Appointment
+      operationId: start--Lead--EditNextAppointment
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Lead--EditNextAppointment--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Lead({objectId})/UserAction(5a39451b-c2a4-4a33-bafd-2bc2d803fa83)':
+    post:
+      tags:
+        - Lead
+      description: Create Invoice
+      operationId: start--Lead--CreateInvoice
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Lead--CreateInvoice--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Lead({objectId})/UserAction(7be67336-22eb-4f19-90ad-a0702f1ace35)':
+    post:
+      tags:
+        - Lead
+      description: SMS Campaign
+      operationId: start--Lead--StartSMSCampaign
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Lead--StartSMSCampaign--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Lead({objectId})/UserAction(f69e0c92-ef52-43d5-bef5-67c4da6466cc)':
+    post:
+      tags:
+        - Lead
+      description: Take Snapshot of Lead View
+      operationId: start--Lead--TakeSnapshot
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Lead--TakeSnapshot--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Lead({objectId})/UserAction(1267ab56-a588-442b-aaf6-8fb03f2be0d1)':
+    post:
+      tags:
+        - Lead
+      description: Email Campaign queued
+      operationId: start--Lead--QueueEmailCampaign
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Lead--QueueEmailCampaign--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Lead({objectId})/UserAction(cb3039a6-11a3-486a-8322-643c99da6ef7)':
+    post:
+      tags:
+        - Lead
+      description: Send "I am on my way"...
+      operationId: start--Lead--SendOMWSMS
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Lead--SendOMWSMS--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Lead({objectId})/UserAction(2828eb9a-53b7-431e-b1c6-3b2fa1e13f18)':
+    post:
+      tags:
+        - Lead
+      description: Send "Remember me?"...
+      operationId: start--Lead--SendRememberMeSMS
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Lead--SendRememberMeSMS--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Lead({objectId})/UserAction(8677f665-a2f2-4b4a-a1f4-3d912edc3a37)':
+    post:
+      tags:
+        - Lead
+      description: Schedule Appointment
+      operationId: start--Lead--ScheduleAppointment
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Lead({objectId})/UserAction(a0cf90d0-0915-4112-81e5-a9e9cf32e679)':
+    post:
+      tags:
+        - Lead
+      description: Get Directions...
+      operationId: start--Lead--GetDirections
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Lead({objectId})/UserAction(b0e4c38c-1ee4-44ab-b857-435af07066a4)':
+    post:
+      tags:
+        - Lead
+      description: Send Email
+      operationId: start--Lead--SendCustomEmail
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Lead--SendCustomEmail--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Lead({objectId})/UserAction(5711c06f-6b25-4354-9e8d-632c36ac9614)':
+    post:
+      tags:
+        - Lead
+      description: Schedule Follow up
+      operationId: start--Lead--ScheduleFollowUp
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Lead--ScheduleFollowUp--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Lead({objectId})/UserAction(526aa877-501a-4289-b6a2-665fa3ce647e)':
+    post:
+      tags:
+        - Lead
+      description: Create Task
+      operationId: start--Lead--CreateTask
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Lead--CreateTask--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Lead({objectId})/UserAction(fd782493-092e-4f8a-b757-aad1b0a2db3d)':
+    post:
+      tags:
+        - Lead
+      description: Trigger Zap
+      operationId: start--Lead--StartZapp
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start--Lead--StartZapp--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-action-response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/Lead/Filter:
+    post:
+      tags:
+        - Lead
+      description: Filter Lead
+      operationId: filter--Lead
+      requestBody:
+        description: Request Filter
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/filter--Lead--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filter--Lead--response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/Lead:
+    post:
+      tags:
+        - Lead
+      description: Create Lead
+      operationId: create--Lead
+      requestBody:
+        description: Object to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create--Lead--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lead'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Object/Lead({objectId})':
+    put:
+      tags:
+        - Lead
+      description: Update Lead
+      operationId: update--Lead
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: fields
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Lead-fields'
+        - name: If-Unmodified-Since
+          in: header
+          schema:
+            type: string
+            format: date-time
+      requestBody:
+        description: Properties to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update--Lead--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lead'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/Organization/Filter:
+    post:
+      tags:
+        - Organization
+      description: Filter Organization
+      operationId: filter--Organization
+      requestBody:
+        description: Request Filter
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/filter--Organization--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filter--Organization--response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/User/Filter:
+    post:
+      tags:
+        - User
+      description: Filter User
+      operationId: filter--User
+      requestBody:
+        description: Request Filter
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/filter--User--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filter--User--response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/salesforce.Account/Filter:
+    post:
+      tags:
+        - salesforce
+      description: 'Filter Customer: Synced Salesforce Object'
+      operationId: filter--Customer
+      requestBody:
+        description: Request Filter
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/filter--Customer--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filter--Customer--response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Object/salesforce.Account({objectId})':
+    put:
+      tags:
+        - salesforce
+      description: 'Update Customer: Synced Salesforce Object'
+      operationId: update--Customer
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: fields
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Customer-fields'
+        - name: If-Unmodified-Since
+          in: header
+          schema:
+            type: string
+            format: date-time
+      requestBody:
+        description: Properties to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update--Customer--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/salesforce.INET_ExternalLink__c/Filter:
+    post:
+      tags:
+        - salesforce
+      description: 'Filter ExternalLink: Synced Salesforce Object'
+      operationId: filter--ExternalLink
+      requestBody:
+        description: Request Filter
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/filter--ExternalLink--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filter--ExternalLink--response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Object/salesforce.INET_ExternalLink__c({objectId})':
+    put:
+      tags:
+        - salesforce
+      description: 'Update ExternalLink: Synced Salesforce Object'
+      operationId: update--ExternalLink
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: fields
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/ExternalLink-fields'
+        - name: If-Unmodified-Since
+          in: header
+          schema:
+            type: string
+            format: date-time
+      requestBody:
+        description: Properties to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update--ExternalLink--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalLink'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/salesforce.INET_MaterialAssignment__c/Filter:
+    post:
+      tags:
+        - salesforce
+      description: 'Filter Material Assignment: Synced Salesforce Object'
+      operationId: filter--MaterialAssignment
+      requestBody:
+        description: Request Filter
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/filter--MaterialAssignment--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filter--MaterialAssignment--response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/salesforce.INET_OptionLineItem__c/Filter:
+    post:
+      tags:
+        - salesforce
+      description: 'Filter Option Line Item: Synced Salesforce Object'
+      operationId: filter--proposalLine
+      requestBody:
+        description: Request Filter
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/filter--proposalLine--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filter--proposalLine--response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/salesforce.INET_Option__c/Filter:
+    post:
+      tags:
+        - salesforce
+      description: 'Filter Option: Synced Salesforce Object'
+      operationId: filter--Proposal
+      requestBody:
+        description: Request Filter
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/filter--Proposal--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filter--Proposal--response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/salesforce.INET_Room__c/Filter:
+    post:
+      tags:
+        - salesforce
+      description: 'Filter Room: Synced Salesforce Object'
+      operationId: filter--Room
+      requestBody:
+        description: Request Filter
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/filter--Room--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filter--Room--response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/salesforce.INET_SectionLineItem__c/Filter:
+    post:
+      tags:
+        - salesforce
+      description: 'Filter Section Line Item: Synced Salesforce Object'
+      operationId: filter--SectionLine
+      requestBody:
+        description: Request Filter
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/filter--SectionLine--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filter--SectionLine--response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Object/salesforce.INET_SectionLineItem__c({objectId})':
+    put:
+      tags:
+        - salesforce
+      description: 'Update Section Line Item: Synced Salesforce Object'
+      operationId: update--SectionLine
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: fields
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/SectionLine-fields'
+        - name: If-Unmodified-Since
+          in: header
+          schema:
+            type: string
+            format: date-time
+      requestBody:
+        description: Properties to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update--SectionLine--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SectionLine'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/salesforce.INET_Section__c/Filter:
+    post:
+      tags:
+        - salesforce
+      description: 'Filter Section: Synced Salesforce Object'
+      operationId: filter--Section
+      requestBody:
+        description: Request Filter
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/filter--Section--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filter--Section--response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Object/salesforce.INET_Section__c({objectId})':
+    put:
+      tags:
+        - salesforce
+      description: 'Update Section: Synced Salesforce Object'
+      operationId: update--Section
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: fields
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Section-fields'
+        - name: If-Unmodified-Since
+          in: header
+          schema:
+            type: string
+            format: date-time
+      requestBody:
+        description: Properties to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update--Section--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Section'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/salesforce.Lead/Filter:
+    post:
+      tags:
+        - salesforce
+      description: 'Filter Lead: Synced Salesforce Object'
+      operationId: filter--Lead2
+      requestBody:
+        description: Request Filter
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/filter--Lead2--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filter--Lead2--response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/salesforce/v1/Object/salesforce.Lead({objectId})':
+    put:
+      tags:
+        - salesforce
+      description: 'Update Lead: Synced Salesforce Object'
+      operationId: update--Lead2
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: fields
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Lead2-fields'
+        - name: If-Unmodified-Since
+          in: header
+          schema:
+            type: string
+            format: date-time
+      requestBody:
+        description: Properties to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update--Lead2--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lead2'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/salesforce.Product2/Filter:
+    post:
+      tags:
+        - salesforce
+      description: 'Filter Product: Synced Salesforce Object'
+      operationId: filter--ProductItem
+      requestBody:
+        description: Request Filter
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/filter--ProductItem--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filter--ProductItem--response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/salesforce.WorkOrder/Filter:
+    post:
+      tags:
+        - salesforce
+      description: 'Filter Project: Synced Salesforce Object'
+      operationId: filter--Project
+      requestBody:
+        description: Request Filter
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/filter--Project--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filter--Project--response'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  /rest/v1/Object/salesforce.WorkOrder:
+    post:
+      tags:
+        - salesforce
+      description: 'Create Project: Synced Salesforce Object'
+      operationId: create--Project
+      requestBody:
+        description: Object to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create--Project--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+  '/rest/v1/Object/salesforce.WorkOrder({objectId})':
+    put:
+      tags:
+        - salesforce
+      description: 'Update Project: Synced Salesforce Object'
+      operationId: update--Project
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: fields
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Project-fields'
+        - name: If-Unmodified-Since
+          in: header
+          schema:
+            type: string
+            format: date-time
+      requestBody:
+        description: Properties to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update--Project--request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+    delete:
+      tags:
+        - salesforce
+      description: 'Delete Project: Synced Salesforce Object'
+      operationId: delete--Project
+      parameters:
+        - name: objectId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: fields
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Project-fields'
+        - name: If-Unmodified-Since
+          in: header
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api-pi-response-error'
+      security:
+        - ProductionIDP:
+            - rest
+          TestIDP:
+            - rest
+components:
+  schemas:
+    api-pi-response-error:
+      title: API Error
+      type: object
+      properties:
+        statusCode:
+          title: Http Status Code
+          maximum: 600
+          minimum: 300
+          type: integer
+          description: HTTP Response Status Code
+        message:
+          title: Error Message
+          type: string
+          description: API Error Message
+        success:
+          title: Success
+          type: boolean
+          description: Whether the request was successful. Always false
+          default: false
+      description: 'System: Response Body on API Error'
+    api-pi-condition-operator:
+      title: Condition Operator
+      enum:
+        - Eq
+        - Gt
+        - Gte
+        - In
+        - Lt
+        - Lte
+        - Ne
+        - Nin
+      type: string
+      description: 'System: Condition Operator'
+      x-enum-varnames:
+        - Equal
+        - GreaterThan
+        - GreaterThanOrEqual
+        - In
+        - LessThan
+        - LessThanOrEqual
+        - NotEqual
+        - NotIn
+      x-enum-descriptions:
+        - Equal
+        - Greater Than
+        - Greater Than Or Equal
+        - In
+        - Less Than
+        - Less Than Or Equal
+        - Not Equal
+        - Not In
+    api-pi-action-response:
+      title: Object Action Response
+      type: object
+      properties:
+        message:
+          title: Error Message
+          type: string
+          description: Error Message
+        success:
+          title: Success
+          type: boolean
+          description: Whether the action was initiated successfully or not
+        nextUrl:
+          title: Next URL
+          type: string
+          description: Url to be launched next
+          format: uri
+        runId:
+          title: Run Id
+          type: string
+          description: 'Id of the flow run initiated by this action, if any.'
+          format: uuid
+      description: Response to initiating an Object Action
+    DateRangePreset:
+      title: Date Range Preset
+      required:
+        - Range
+      type: object
+      properties:
+        Name:
+          title: Name
+          type: string
+        Range:
+          title: Range
+          type: string
+      description: Date Range Preset
+    Condition:
+      title: Filter Condition
+      required:
+        - FieldName
+        - Operator
+        - Value
+      type: object
+      properties:
+        FieldName:
+          title: Field Name
+        Operator:
+          title: Operator
+          enum:
+            - Eq
+            - Gt
+            - Gte
+            - In
+            - Lt
+            - Lte
+            - Ne
+            - Nin
+          type: string
+        Value:
+          title: Value
+      description: Filter Condition
+    UIElement:
+      title: base for UI objects
+      required:
+        - Name
+      type: object
+      properties:
+        Name:
+          title: Name
+          type: string
+        Label:
+          title: Label
+          type: string
+        Enable:
+          title: Enable
+        Visible:
+          title: Visible
+      description: base for UI objects
+    FieldOptions:
+      title: Base type for field options
+      required:
+        - _t
+      type: object
+      properties:
+        _t:
+          title: Type
+          enum:
+            - AddressFieldOptions
+            - ArrayFieldOptions
+            - BitwiseFlagFieldOptions
+            - CheckboxFieldOptions
+            - ChildrenFieldOptions
+            - DateRangeFieldOptions
+            - DictionaryFieldOptions
+            - EmailFieldOptions
+            - FileFieldOptions
+            - GenericFieldOptions
+            - HiddenFieldOptions
+            - LabelFieldOptions
+            - LookupFieldOptions
+            - MultiReferenceFieldOptions
+            - MultiSelectFieldOptions
+            - NumberFieldOptions
+            - ObjectFieldOptions
+            - PasswordFieldOptions
+            - PhoneFieldOptions
+            - PostalCodeFieldOptions
+            - ReferenceFieldOptions
+            - RelatedObjectsFieldOptions
+            - SelectFieldOptions
+            - TagsFieldOptions
+            - TextFieldOptions
+            - TimeFieldOptions
+            - UrlFieldOptions
+          type: string
+        LinkUrl:
+          title: Link Url
+          type: string
+        LinkLabel:
+          title: Link Label
+          type: string
+      description: Base type for field options
+      discriminator:
+        propertyName: _t
+        mapping:
+          ArrayFieldOptions: '#/components/schemas/ArrayFieldOptions'
+          CheckboxFieldOptions: '#/components/schemas/CheckboxFieldOptions'
+          ChildrenFieldOptions: '#/components/schemas/ChildrenFieldOptions'
+          DateRangeFieldOptions: '#/components/schemas/DateRangeFieldOptions'
+          DictionaryFieldOptions: '#/components/schemas/DictionaryFieldOptions'
+          FileFieldOptions: '#/components/schemas/FileFieldOptions'
+          GenericFieldOptions: '#/components/schemas/GenericFieldOptions'
+          HiddenFieldOptions: '#/components/schemas/HiddenFieldOptions'
+          LabelFieldOptions: '#/components/schemas/LabelFieldOptions'
+          MultiReferenceFieldOptions: '#/components/schemas/MultiReferenceFieldOptions'
+          MultiSelectFieldOptions: '#/components/schemas/MultiSelectFieldOptions'
+          NumberFieldOptions: '#/components/schemas/NumberFieldOptions'
+          ObjectFieldOptions: '#/components/schemas/ObjectFieldOptions'
+          PasswordFieldOptions: '#/components/schemas/PasswordFieldOptions'
+          PhoneFieldOptions: '#/components/schemas/PhoneFieldOptions'
+          PostalCodeFieldOptions: '#/components/schemas/PostalCodeFieldOptions'
+          ReferenceFieldOptions: '#/components/schemas/ReferenceFieldOptions'
+          SelectFieldOptions: '#/components/schemas/SelectFieldOptions'
+          TagsFieldOptions: '#/components/schemas/TagsFieldOptions'
+          TextFieldOptions: '#/components/schemas/TextFieldOptions'
+          TimeFieldOptions: '#/components/schemas/TimeFieldOptions'
+          UrlFieldOptions: '#/components/schemas/UrlFieldOptions'
+          LookupFieldOptions: '#/components/schemas/LookupFieldOptions'
+          RelatedObjectsFieldOptions: '#/components/schemas/RelatedObjectsFieldOptions'
+          BitwiseFlagFieldOptions: '#/components/schemas/BitwiseFlagFieldOptions'
+    MenuItem:
+      title: Menu Item
+      required:
+        - _t
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/UIElement'
+      properties:
+        Icon:
+          title: Icon
+          type: string
+        _t:
+          title: Type
+          enum:
+            - ActionMenuItem
+            - Menu
+            - MenuItem
+            - PageMenuItem
+          type: string
+      description: Menu Item
+      discriminator:
+        propertyName: _t
+        mapping:
+          Menu: '#/components/schemas/Menu'
+    FormLayout:
+      title: Form Layout
+      required:
+        - Breakpoint
+        - _t
+      type: object
+      properties:
+        Breakpoint:
+          title: Breakpoint
+          enum:
+            - lg
+            - md
+            - sm
+            - xl
+            - xs
+          type: string
+        _t:
+          title: Type
+          enum:
+            - GridFormLayout
+          type: string
+          example: GridFormLayout
+      description: Form Layout
+      discriminator:
+        propertyName: _t
+        mapping:
+          GridFormLayout: '#/components/schemas/GridFormLayout'
+    GridFormRowLayout:
+      title: Grid Form Row Layout
+      required:
+        - Fields
+      type: object
+      properties:
+        Fields:
+          title: Fields
+          type: array
+          items:
+            $ref: '#/components/schemas/GridFormFieldLayout'
+      description: Grid Form Row Layout
+    GridFormFieldLayout:
+      title: Grid Form Field Layout
+      required:
+        - Name
+        - Width
+      type: object
+      properties:
+        Name:
+          title: Field Name
+          type: string
+        Width:
+          title: Width
+          type: integer
+      description: Grid Form Field Layout
+    Field:
+      title: Form Field
+      required:
+        - _t
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/UIElement'
+      properties:
+        _t:
+          title: Type
+          enum:
+            - AddressField
+            - ArrayField
+            - BitwiseFlagField
+            - CalculatedField
+            - CheckboxField
+            - ChildrenField
+            - DateField
+            - DateRangeField
+            - DateTimeField
+            - DictionaryField
+            - EmailField
+            - ExpressionField
+            - FileField
+            - GenericField
+            - HiddenField
+            - ImageField
+            - LabelField
+            - LocationDistanceField
+            - LocationField
+            - LookupField
+            - MultiReferenceField
+            - MultiSelectField
+            - NumberField
+            - ObjectField
+            - PasswordField
+            - PhoneField
+            - PostalCodeField
+            - ReferenceField
+            - RelatedObjectsField
+            - SelectField
+            - TagsField
+            - TextField
+            - TimeField
+            - UrlField
+          type: string
+        Description:
+          title: Description
+          type: string
+        ApiName:
+          title: ApiName
+          type: string
+        DefaultValue:
+          title: Default Value
+        IsRequired:
+          title: Required?
+          type: boolean
+        Options:
+          $ref: '#/components/schemas/FieldOptions'
+      description: Form Field
+      discriminator:
+        propertyName: _t
+        mapping:
+          AddressField: '#/components/schemas/AddressField'
+          ArrayField: '#/components/schemas/ArrayField'
+          CheckboxField: '#/components/schemas/CheckboxField'
+          ChildrenField: '#/components/schemas/ChildrenField'
+          DateField: '#/components/schemas/DateField'
+          DateRangeField: '#/components/schemas/DateRangeField'
+          DateTimeField: '#/components/schemas/DateTimeField'
+          DictionaryField: '#/components/schemas/DictionaryField'
+          EmailField: '#/components/schemas/EmailField'
+          FileField: '#/components/schemas/FileField'
+          GenericField: '#/components/schemas/GenericField'
+          HiddenField: '#/components/schemas/HiddenField'
+          LabelField: '#/components/schemas/LabelField'
+          MultiReferenceField: '#/components/schemas/MultiReferenceField'
+          MultiSelectField: '#/components/schemas/MultiSelectField'
+          NumberField: '#/components/schemas/NumberField'
+          ObjectField: '#/components/schemas/ObjectField'
+          PasswordField: '#/components/schemas/PasswordField'
+          PhoneField: '#/components/schemas/PhoneField'
+          PostalCodeField: '#/components/schemas/PostalCodeField'
+          ReferenceField: '#/components/schemas/ReferenceField'
+          SelectField: '#/components/schemas/SelectField'
+          TagsField: '#/components/schemas/TagsField'
+          TextField: '#/components/schemas/TextField'
+          TimeField: '#/components/schemas/TimeField'
+          UrlField: '#/components/schemas/UrlField'
+          LookupField: '#/components/schemas/LookupField'
+          RelatedObjectsField: '#/components/schemas/RelatedObjectsField'
+          BitwiseFlagField: '#/components/schemas/BitwiseFlagField'
+    Form:
+      title: Form
+      required:
+        - Name
+      type: object
+      properties:
+        Name:
+          title: Name
+          type: string
+        Title:
+          title: Title
+          type: string
+        IsReadOnly:
+          title: Read Only
+          type: boolean
+        Fields:
+          title: Fields
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+        Menu:
+          $ref: '#/components/schemas/Menu'
+        ObjectType:
+          title: Object Type
+          type: string
+        _id:
+          title: Id
+          type: string
+          format: uuid
+        Layouts:
+          title: Layouts
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FormLayout'
+      description: Form
+    SelectFieldOptions:
+      title: Options for Select Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      properties:
+        Items:
+          title: Items
+      description: Options for Select Field
+    ReferenceFieldOptions:
+      title: 'Options for Reference Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/SelectFieldOptions'
+      properties:
+        ObjectType:
+          title: Object Type
+          type: string
+        AutoComplete:
+          title: Auto Complete
+          type: boolean
+        ForeignFieldName:
+          title: Foreign Field Name
+          type: string
+        Criteria:
+          title: Criteria
+          type: array
+          items:
+            $ref: '#/components/schemas/Condition'
+        JoinBehavior:
+          title: Join Behavior
+          enum:
+            - Exclude
+            - FilterOnly
+            - Unsafe
+          type: string
+        Actions:
+          title: Actions
+          type: array
+          items:
+            $ref: '#/components/schemas/FormAction'
+        ContributeUserEvents:
+          title: Contribute Events To
+          enum:
+            - Always
+            - Form
+            - Never
+            - View
+          type: string
+      description: 'Options for Reference Field '
+      discriminator:
+        propertyName: _t
+        mapping:
+          MultiReferenceFieldOptions: '#/components/schemas/MultiReferenceFieldOptions'
+    AddressField:
+      title: Address Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Address Field
+    ArrayField:
+      title: Array Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Array Field
+    ArrayFieldOptions:
+      title: Options for Array Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      properties:
+        ValueField:
+          $ref: '#/components/schemas/Field'
+      description: Options for Array Field
+    BitwiseFlagField:
+      title: Bitwise Flag Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Bitwise Flag Field
+    BitwiseFlagFieldOptions:
+      title: Bitwise Flag Field Options
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      properties:
+        Items:
+          title: Items
+      description: Bitwise Flag Field Options
+    CheckboxField:
+      title: Checkbox Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Checkbox Field
+    CheckboxFieldOptions:
+      title: 'Options for Checkbox Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      properties:
+        Style:
+          title: Style
+          enum:
+            - Button
+            - Default
+            - Dropdown
+            - Toggle
+          type: string
+      description: 'Options for Checkbox Field '
+    ChildrenField:
+      title: Children Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Children Field
+    ChildrenFieldOptions:
+      title: 'Options for Children Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      properties:
+        Url:
+          title: Url
+          type: string
+        ObjectType:
+          title: Object Type
+          type: string
+        KeyType:
+          title: Key Type
+          enum:
+            - int
+            - string
+          type: string
+        Criteria:
+          title: Criteria
+          type: array
+          items:
+            $ref: '#/components/schemas/Condition'
+        KeyField:
+          $ref: '#/components/schemas/Field'
+      description: 'Options for Children Field '
+    DateField:
+      title: Date Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Date Field
+    DateRangeField:
+      title: Date Range Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Date Range Field
+    DateRangeFieldOptions:
+      title: 'Options for DateRange Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      properties:
+        Min:
+          title: Min
+          type: string
+        Max:
+          title: Max
+          type: string
+        DateRangePreset:
+          title: Presets
+          type: array
+          items:
+            $ref: '#/components/schemas/DateRangePreset'
+      description: 'Options for DateRange Field '
+    DateTimeField:
+      title: Date Time Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Date Time Field
+    DictionaryField:
+      title: Dictionary Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Dictionary Field
+    DictionaryFieldOptions:
+      title: 'Options for Dictionary Field '
+      required:
+        - KeyField
+        - ValueField
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      properties:
+        ExpandAllKeys:
+          title: Expand All Keys
+          type: boolean
+        KeyField:
+          $ref: '#/components/schemas/Field'
+        ValueField:
+          $ref: '#/components/schemas/Field'
+      description: 'Options for Dictionary Field '
+    EmailField:
+      title: Email Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Email Field
+    FileField:
+      title: File Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: File Field
+    FileFieldOptions:
+      title: 'Options for File Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      properties:
+        ContentTypes:
+          title: Content Types
+          type: array
+          items:
+            type: string
+      description: 'Options for File Field '
+    FormAction:
+      title: Form Action
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/UIElement'
+      properties:
+        Action:
+          title: Action
+          type: string
+      description: Form Action
+    GenericField:
+      title: Generic Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Generic Field
+    GenericFieldOptions:
+      title: 'Options for Generic Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      description: 'Options for Generic Field '
+    GridFormLayout:
+      title: Grid Form Layout
+      required:
+        - Rows
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FormLayout'
+      properties:
+        Rows:
+          title: Rows
+          type: array
+          items:
+            $ref: '#/components/schemas/GridFormRowLayout'
+      description: Grid Form Layout
+    HiddenField:
+      title: Hidden Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Hidden Field
+    HiddenFieldOptions:
+      title: 'Options for Hidden Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      description: 'Options for Hidden Field '
+    LabelField:
+      title: Label Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Label Field
+    LabelFieldOptions:
+      title: 'Options for Label Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      properties:
+        Style:
+          title: Style
+          enum:
+            - Button
+            - Header
+            - HTML
+            - Normal
+            - Subheader
+            - Subheader2
+          type: string
+        Color:
+          title: Color
+          enum:
+            - Default
+            - Error
+            - Primary
+            - Secondary
+            - TextPrimary
+            - TextSecondary
+          type: string
+      description: 'Options for Label Field '
+    LookupField:
+      title: Lookup Field (DEPRECATED)
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Lookup Field (DEPRECATED)
+    LookupFieldOptions:
+      title: Options for Lookup Field (DEPRECATED)
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      description: Options for Lookup Field (DEPRECATED)
+    Menu:
+      title: Menu Object
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/MenuItem'
+      properties:
+        Collapsible:
+          title: Collapsible
+          type: boolean
+        Items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuItem'
+          description: Items
+      description: Menu Object
+    MultiReferenceField:
+      title: MultiReference Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: MultiReference Field
+    MultiReferenceFieldOptions:
+      title: 'Options for MultiReference Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ReferenceFieldOptions'
+      description: 'Options for MultiReference Field '
+    MultiSelectField:
+      title: MultiSelect Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: MultiSelect Field
+    MultiSelectFieldOptions:
+      title: 'Options for MultiSelect Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/SelectFieldOptions'
+      description: 'Options for MultiSelect Field '
+    NumberField:
+      title: Number Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Number Field
+    NumberFieldOptions:
+      title: 'Options for Number Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      properties:
+        DecimalPlaces:
+          title: Decimal Places
+          type: integer
+          example: 0
+        Minimum:
+          title: Minimum
+          type: number
+        Maximum:
+          title: Maximum
+          type: number
+        ExcludeMaximum:
+          title: Exclude Maximum
+          type: boolean
+        ExcludeMinimum:
+          title: Exclude Minimum
+          type: boolean
+        MultipleOf:
+          title: Multiple Of
+          type: number
+        Style:
+          title: Style
+          enum:
+            - Currency
+            - Default
+            - Price
+            - Rating
+          type: string
+      description: 'Options for Number Field '
+    ObjectField:
+      title: Object Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Object Field
+    ObjectFieldOptions:
+      title: 'Options for Object Field '
+      required:
+        - ObjectType
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      properties:
+        ObjectType:
+          title: Object Type
+          type: string
+      description: 'Options for Object Field '
+    Page:
+      title: UI Page
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/UIElement'
+      properties:
+        _t:
+          title: Type
+          enum:
+            - CustomPage
+            - ExternalPage
+            - FormPage
+            - GridPage
+            - LayoutPage
+          type: string
+        AppMenu:
+          title: Top Level Menu Name (to load)
+          type: string
+        Menu:
+          $ref: '#/components/schemas/Menu'
+      description: UI Page
+      discriminator:
+        propertyName: _t
+        mapping:
+          FormPage: '#/components/schemas/FormPage'
+          GridPage: '#/components/schemas/GridPage'
+          ExternalPage: '#/components/schemas/ExternalPage'
+          CustomPage: '#/components/schemas/CustomPage'
+    PasswordField:
+      title: Password Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Password Field
+    PasswordFieldOptions:
+      title: 'Options for Password Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      description: 'Options for Password Field '
+    PhoneField:
+      title: Phone Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Phone Field
+    PhoneFieldOptions:
+      title: 'Options for Phone Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      properties:
+        AutoFormat:
+          title: Format Automatically
+          enum:
+            - International
+            - National
+            - None
+          type: string
+      description: 'Options for Phone Field '
+    PostalCodeField:
+      title: PostalCode Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: PostalCode Field
+    PostalCodeFieldOptions:
+      title: 'Options for PostalCode Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      description: 'Options for PostalCode Field '
+    ReferenceField:
+      title: Reference Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Reference Field
+    RelatedObjectsField:
+      title: RelatedObjects Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: RelatedObjects Field
+    RelatedObjectsFieldOptions:
+      title: 'Options for RelatedObjects Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      description: 'Options for RelatedObjects Field '
+    RemoteFileFieldOptions:
+      title: Options for Remote File Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ReferenceFieldOptions'
+      description: Options for Remote File Field
+    SelectField:
+      title: Select Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Select Field
+    TagsField:
+      title: Tags Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Tags Field
+    TagsFieldOptions:
+      title: 'Options for Tags Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      properties:
+        Url:
+          title: Url
+          type: string
+          description: Lookup url. "id" will be replaced with parent id
+          format: uri
+      description: 'Options for Tags Field '
+    TextField:
+      title: Text Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Text Field
+    TextFieldOptions:
+      title: 'Options for Text Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      properties:
+        Multline:
+          title: Multiple Lines
+          type: boolean
+        ContentType:
+          title: Content Type
+          enum:
+            - text/html
+            - text/plain
+          type: string
+        Format:
+          title: Format
+          type: string
+        MaxLength:
+          title: Max Length
+          type: integer
+        AllowExpressions:
+          title: Allow Expressions
+          type: boolean
+      description: 'Options for Text Field '
+    TimeField:
+      title: Time Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Time Field
+    TimeFieldOptions:
+      title: 'Options for Time Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      description: 'Options for Time Field '
+    UrlField:
+      title: Url Field
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Field'
+      description: Url Field
+    UrlFieldOptions:
+      title: 'Options for Url Field '
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FieldOptions'
+      description: 'Options for Url Field '
+    start--Appointment--SendCustomAppointmentConfirmationEmail--request:
+      title: Request body for SendCustomAppointmentConfirmationEmail
+      type: object
+      properties:
+        UnlayerTemplateId:
+          title: Template
+          type: string
+    start--Appointment--SendAppointmentConfirmationEmail--request:
+      title: Request body for SendAppointmentConfirmationEmail
+      type: object
+      properties:
+        Description:
+          title: Subject
+          type: string
+          example: Your appointment has been confirmed!
+        UnlayerTemplateId:
+          title: Template
+          type: string
+        Message:
+          title: 'Messsage ({{InitialEvent.MetaValues.Message}})'
+          type: string
+    start--Appointment--SendOMWSMS--request:
+      title: Request body for SendOMWSMS
+      type: object
+      properties:
+        PhoneNumber:
+          title: Phone Number
+          type: string
+          example: '{{Objects.Appointment|LeadId.NormalizedPhoneNumber}}'
+        Description:
+          title: Message
+          type: string
+          example: 'Hi {{Objects.Appointment|LeadId.FirstName}}. Just to let you know that I am on my way and should get there in 15minutes --{{Objects.User.Name}}'
+    start--Appointment--SendUpcomingAppointmentReminder--request:
+      title: Request body for SendUpcomingAppointmentReminder
+      type: object
+      properties:
+        PhoneNumber:
+          title: Phone Number
+          type: string
+          example: '{{Objects.Appointment|LeadId.NormalizedPhoneNumber}}'
+        Description:
+          title: Message
+          type: string
+          example: 'Hi {{Objects.Appointment|LeadId.FirstName}}. I look forward to our appointment on {{Object.LocalDate}} at {{Object.LocalTime}}. Let me know if you have any questions or need to make any other arrangements. --{{Objects.User.Name}}'
+    start--Appointment--InitiateOMWSMS--request:
+      title: Request body for InitiateOMWSMS
+      type: object
+      properties:
+        PhoneNumber:
+          title: Phone Number
+          type: string
+          example: '{{Objects.Appointment|LeadId.NormalizedPhoneNumber}}'
+        Description:
+          title: Message
+          type: string
+          example: 'Hi {{firstName Objects.Appointment|LeadId.Name}}. we can''t wait to meet you --{{firstName Objects.User.Name}}'
+      description: Send SMS message that you are on your way to the Appoointment
+    start--Appointment--InitiateSMSForUpcomingApppointment--request:
+      title: Request body for InitiateSMSForUpcomingApppointment
+      type: object
+      properties:
+        PhoneNumber:
+          title: Phone Number
+          type: string
+          example: '{{Objects.Appointment|LeadId.NormalizedPhoneNumber}}'
+        Description:
+          title: Message
+          type: string
+          example: 'Hi {{Objects.Appointment|LeadId.FirstName}}. I look forward to our appointment on {{Object.LocalDate}} at {{Object.LocalTime}}. Let me know if you have any questions or need to make any other arrangements. --{{Objects.User.Name}} check out my reviews at www.google.com'
+      description: Send SMS with the time and date of Upcoming Appointment
+    Appointment--actions:
+      title: Appointment Actions
+      enum:
+        - b1a3f1ab-0666-49a5-a3a6-ee419fc888fe
+        - f1de146a-64a6-4895-84ac-1362613ba34c
+        - 2e8f1aa3-6d5f-449f-8036-141782333508
+        - bf2ea2a0-f5b1-4781-ac85-11a001dfabfe
+        - d53bd8ec-69fa-4983-9a79-831ebf904b5e
+        - f277675f-15a9-45c5-a226-b5f5ea382252
+        - 853b8829-05d3-4404-ab5a-ec6db57e5f57
+      type: string
+      description: Appointment Event Ids
+      x-enum-varnames:
+        - SendCustomAppointmentConfirmationEmail
+        - SendAppointmentConfirmationEmail
+        - SendOMWSMS
+        - SendUpcomingAppointmentReminder
+        - InitiateCallWithOpenPhone
+        - InitiateOMWSMS
+        - InitiateSMSForUpcomingApppointment
+      x-enum-descriptions:
+        - Send Confirmation Email
+        - Send Email
+        - Send "I am on my way"...
+        - Send "Upcoming appointment"...
+        - Call
+        - Send "I am on my way"...
+        - Upcoming Apppointment
+    Appointment:
+      title: Appointment
+      type: object
+      properties:
+        _id:
+          title: ID
+          type: string
+          format: uuid
+        name:
+          title: Name
+          type: string
+        description:
+          title: Description
+          type: string
+        userId:
+          title: User
+          type: string
+        createdByUserId:
+          title: Created By
+          type: string
+        leadId:
+          title: Lead
+          type: string
+        localDate:
+          title: Local Date
+          type: string
+        localTime:
+          title: Local Time
+          type: string
+        cancelledDate:
+          title: Cancelled On
+          type: string
+          format: date-time
+        cancelledByUserId:
+          title: Cancelled By
+          type: string
+        createdDate:
+          title: Created On
+          type: string
+          format: date-time
+        startUtc:
+          title: Start
+          type: string
+          format: date-time
+        endUtc:
+          title: End
+          type: string
+          format: date-time
+        timeZone:
+          title: Time Zone
+          type: string
+        tool:
+          title: Tool
+          type: string
+        sfProjectId:
+          title: Salesforce Project
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+        createdByUser:
+          $ref: '#/components/schemas/User'
+        lead:
+          $ref: '#/components/schemas/Lead'
+        cancelledByUser:
+          $ref: '#/components/schemas/User'
+      description: Appointment
+    update--Appointment--request:
+      title: 'Appointment: Update Body'
+      type: object
+      description: Request Body to Update Appointment
+    create--Appointment--request:
+      title: 'Appointment: Create Body'
+      type: object
+      description: Request Body to Create Appointment
+    Appointment-indexed-fields:
+      title: 'Appointment: Filterable Fields'
+      enum:
+        - _id
+        - '#text'
+        - cancelledByUserId
+        - cancelledDate
+        - createdByUserId
+        - createdDate
+        - endUtc
+        - leadId
+        - startUtc
+        - timeZone
+        - tool
+        - userId
+      type: string
+      description: Filterable fields for Appointment
+    Appointment-fields:
+      title: 'Appointment: Fields'
+      enum:
+        - _id
+        - cancelledByUser
+        - cancelledByUser__t
+        - cancelledByUser_AccountId
+        - cancelledByUser_name
+        - cancelledByUser_organizationId
+        - cancelledByUser_phone
+        - cancelledByUser_timeZone
+        - cancelledByUserId
+        - cancelledDate
+        - createdByUser
+        - createdByUser__t
+        - createdByUser_AccountId
+        - createdByUser_name
+        - createdByUser_organizationId
+        - createdByUser_phone
+        - createdByUser_timeZone
+        - createdByUserId
+        - createdDate
+        - description
+        - endUtc
+        - iCal
+        - lead
+        - lead__id
+        - lead_address
+        - lead_city
+        - lead_convertedDate
+        - lead_country
+        - lead_createdDate
+        - lead_email
+        - lead_emailPreferences
+        - lead_flowId
+        - lead_fullName
+        - lead_integrations
+        - lead_integrations_externalId
+        - lead_integrations_integrationId
+        - lead_integrations_status
+        - lead_integrations_tag
+        - lead_integrations_url
+        - lead_Integrations|Salesforce|Lead
+        - lead_isActive
+        - lead_lastModifiedDate
+        - lead_leadTypeId
+        - lead_Location
+        - lead_LocationDistance
+        - lead_nextAppointmentId
+        - lead_notes
+        - lead_objectStatusId
+        - lead_organizationId
+        - lead_phone
+        - lead_phonePreferences
+        - lead_postalCode
+        - lead_Refs|v
+        - lead_sfLeadSourceId
+        - lead_smsPreferences
+        - lead_state
+        - lead_tags
+        - lead_Test
+        - lead_userId
+        - leadId
+        - localDate
+        - localTime
+        - name
+        - Scheduler
+        - sfProjectId
+        - startUtc
+        - timeZone
+        - tool
+        - user
+        - user__t
+        - user_AccountId
+        - user_name
+        - user_organizationId
+        - user_phone
+        - user_timeZone
+        - userId
+      type: string
+      description: Fields for Appointment
+    Appointment-condition:
+      title: 'Appointment: Filter Condition'
+      type: object
+      properties:
+        fieldName:
+          $ref: '#/components/schemas/Appointment-indexed-fields'
+        operator:
+          $ref: '#/components/schemas/api-pi-condition-operator'
+        value:
+          title: Value
+          description: Value to be used in the filter operation
+      description: Field Condition for Appointment
+    filter--Appointment--request:
+      title: 'Appointment: Filter Body'
+      type: object
+      properties:
+        top:
+          title: Top
+          minimum: 0
+          type: integer
+          description: Max Number of objects to return
+        skip:
+          title: Skip
+          minimum: 0
+          type: integer
+          description: Number of objects to skip
+        orderBy:
+          $ref: '#/components/schemas/Appointment-indexed-fields'
+        reverseOrder:
+          title: Reverse Order
+          type: boolean
+          description: Order By in Reverse Order (Descending)
+        fields:
+          title: Fields to return
+          type: array
+          items:
+            $ref: '#/components/schemas/Appointment-fields'
+          description: List of fields to return
+        criteria:
+          title: Filter Criteria
+          type: array
+          items:
+            $ref: '#/components/schemas/Appointment-condition'
+          description: Conditions to be used to filter objects
+      description: Request Body to filter Appointment
+    filter--Appointment--response:
+      title: 'Appointment: Filter Response'
+      type: array
+      items:
+        $ref: '#/components/schemas/Appointment'
+      description: Response Body to filter Appointment
+    Entity:
+      title: Entity
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
+        _t:
+          title: Type
+          enum:
+            - Account
+            - Organization
+            - User
+          type: string
+        phone:
+          title: Phone
+          type: string
+          format: phone
+        timeZone:
+          title: Time Zone
+          type: string
+        organizationId:
+          title: Organization
+          type: string
+      description: Entity
+      discriminator:
+        propertyName: _t
+        mapping:
+          Organization: '#/components/schemas/Organization'
+          User: '#/components/schemas/User'
+    Entity-indexed-fields:
+      title: 'Entity: Filterable Fields'
+      enum:
+        - _t
+        - '#text'
+        - AccountId
+        - name
+        - organizationId
+      type: string
+      description: Filterable fields for Entity
+    Entity-fields:
+      title: 'Entity: Fields'
+      enum:
+        - _t
+        - AccountId
+        - name
+        - organizationId
+        - phone
+        - timeZone
+      type: string
+      description: Fields for Entity
+    Entity-condition:
+      title: 'Entity: Filter Condition'
+      type: object
+      properties:
+        fieldName:
+          $ref: '#/components/schemas/Entity-indexed-fields'
+        operator:
+          $ref: '#/components/schemas/api-pi-condition-operator'
+        value:
+          title: Value
+          description: Value to be used in the filter operation
+      description: Field Condition for Entity
+    filter--Entity--request:
+      title: 'Entity: Filter Body'
+      type: object
+      properties:
+        top:
+          title: Top
+          minimum: 0
+          type: integer
+          description: Max Number of objects to return
+        skip:
+          title: Skip
+          minimum: 0
+          type: integer
+          description: Number of objects to skip
+        orderBy:
+          $ref: '#/components/schemas/Entity-indexed-fields'
+        reverseOrder:
+          title: Reverse Order
+          type: boolean
+          description: Order By in Reverse Order (Descending)
+        fields:
+          title: Fields to return
+          type: array
+          items:
+            $ref: '#/components/schemas/Entity-fields'
+          description: List of fields to return
+        criteria:
+          title: Filter Criteria
+          type: array
+          items:
+            $ref: '#/components/schemas/Entity-condition'
+          description: Conditions to be used to filter objects
+      description: Request Body to filter Entity
+    filter--Entity--response:
+      title: 'Entity: Filter Response'
+      type: array
+      items:
+        $ref: '#/components/schemas/Entity'
+      description: Response Body to filter Entity
+    EntityOwnedModel:
+      title: EntityOwnedModel
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
+        description:
+          title: Description
+          type: string
+        entityId:
+          title: Entity
+          type: string
+          example: '{{OrganizationId}}'
+        _id:
+          title: Id
+          type: string
+          format: uuid
+      description: EntityOwnedModel
+    start--Lead--ExportToSalesforce--request:
+      title: Request body for ExportToSalesforce
+      type: object
+      properties:
+        Description:
+          title: Description
+          type: string
+    start--Lead--SendCustomSMS--request:
+      title: Request body for SendCustomSMS
+      type: object
+      properties:
+        PhoneNumber:
+          title: Phone Number
+          type: string
+          example: '{{Object.NormalizedPhoneNumber}}'
+        Description:
+          title: Message
+          type: string
+    start--Lead--EditNextAppointment--request:
+      title: Request body for EditNextAppointment
+      type: object
+      properties:
+        _id:
+          title: Lead
+          type: string
+          example: '{{Object._id}}'
+        NextAppoitmentId:
+          title: Appointment
+          type: string
+          example: '{{Object.NextAppointmentId}}'
+      description: Edit Next Appointment
+    start--Lead--CreateInvoice--request:
+      title: Request body for CreateInvoice
+      type: object
+      properties:
+        Name:
+          title: Name
+          type: string
+          example: Custom Invoice
+        Description:
+          title: Description
+          type: string
+          example: Invoice created manuallly
+        ExternalIdSuffix:
+          title: Unique Identifier
+          type: string
+          example: Custom
+    start--Lead--StartSMSCampaign--request:
+      title: Request body for StartSMSCampaign
+      type: object
+      properties:
+        Description:
+          title: Description
+          type: string
+          example: SMS Campaign
+    start--Lead--TakeSnapshot--request:
+      title: Request body for TakeSnapshot
+      type: object
+      properties:
+        Name:
+          title: Name
+          type: string
+          example: Snapshot
+        Description:
+          title: Description
+          type: string
+      description: Take Snapshot of Lead View
+    start--Lead--QueueEmailCampaign--request:
+      title: Request body for QueueEmailCampaign
+      type: object
+      properties:
+        Name:
+          title: Name
+          type: string
+          example: Snapshot
+        Description:
+          title: Description
+          type: string
+        FromName:
+          title: From Name
+          type: string
+        FromEmail:
+          title: From Email
+          type: string
+        Subject:
+          title: Subject
+          type: string
+        ToNameField:
+          title: To Name (Field)
+          type: string
+        ToEmailField:
+          title: To Email (Field)
+          type: string
+        UnlayerTemplateId:
+          title: Email Template
+          type: string
+      description: Email Campaign queued
+    start--Lead--SendOMWSMS--request:
+      title: Request body for SendOMWSMS
+      type: object
+      properties:
+        PhoneNumber:
+          title: Phone Number
+          type: string
+          example: '{{Object.NormalizedPhoneNumber}}'
+        Description:
+          title: Message
+          type: string
+          example: 'Hi {{Object.FirstName}}. Just to let you know that I am on my way and should get there in 15minutes --{{Context|User|FirstName}}'
+    start--Lead--SendRememberMeSMS--request:
+      title: Request body for SendRememberMeSMS
+      type: object
+      properties:
+        PhoneNumber:
+          title: Phone Number
+          type: string
+          example: '{{Object.NormalizedPhoneNumber}}'
+        Description:
+          title: Message
+          type: string
+          example: 'Dear {{Object.Name}}. We are here for you, please let me know if you have any questions about the proposal --{{Context|User|FirstName}}'
+    start--Lead--SendCustomEmail--request:
+      title: Request body for SendCustomEmail
+      type: object
+      properties:
+        Description:
+          title: Subject
+          type: string
+        UnlayerTemplateId:
+          title: Template
+          type: string
+        Message:
+          title: 'Messsage ({{InitialEvent.MetaValues.Message}})'
+          type: string
+    start--Lead--ScheduleFollowUp--request:
+      title: Request body for ScheduleFollowUp
+      type: object
+      properties:
+        Description:
+          title: Description
+          type: string
+        Date:
+          title: Date
+          type: string
+          format: date
+        Time:
+          title: Time
+    start--Lead--CreateTask--request:
+      title: Request body for CreateTask
+      type: object
+      properties:
+        Description:
+          title: Description
+          type: string
+        DueDate:
+          title: Due Date
+          type: string
+          format: date-time
+        EntityId:
+          title: Assign to
+          type: string
+          example: '{{Context|UserId}}'
+    start--Lead--StartZapp--request:
+      title: Request body for StartZapp
+      type: object
+      properties:
+        Description:
+          title: Description
+          type: string
+        Campaign:
+          title: Campaign
+          type: string
+          example: FollowUp
+    Lead--actions:
+      title: Lead Actions
+      enum:
+        - 90e2791a-8a3a-46af-915e-47b4ed48c159
+        - 39df2cd6-7461-4700-be80-5ba32eb1dd7c
+        - 0522eac0-e45a-4b23-9143-431691e4d559
+        - 5a39451b-c2a4-4a33-bafd-2bc2d803fa83
+        - 7be67336-22eb-4f19-90ad-a0702f1ace35
+        - f69e0c92-ef52-43d5-bef5-67c4da6466cc
+        - 1267ab56-a588-442b-aaf6-8fb03f2be0d1
+        - cb3039a6-11a3-486a-8322-643c99da6ef7
+        - 2828eb9a-53b7-431e-b1c6-3b2fa1e13f18
+        - 8677f665-a2f2-4b4a-a1f4-3d912edc3a37
+        - a0cf90d0-0915-4112-81e5-a9e9cf32e679
+        - b0e4c38c-1ee4-44ab-b857-435af07066a4
+        - 5711c06f-6b25-4354-9e8d-632c36ac9614
+        - 526aa877-501a-4289-b6a2-665fa3ce647e
+        - fd782493-092e-4f8a-b757-aad1b0a2db3d
+      type: string
+      description: Lead Event Ids
+      x-enum-varnames:
+        - ExportToSalesforce
+        - SendCustomSMS
+        - EditNextAppointment
+        - CreateInvoice
+        - StartSMSCampaign
+        - TakeSnapshot
+        - QueueEmailCampaign
+        - SendOMWSMS
+        - SendRememberMeSMS
+        - ScheduleAppointment
+        - GetDirections
+        - SendCustomEmail
+        - ScheduleFollowUp
+        - CreateTask
+        - StartZapp
+      x-enum-descriptions:
+        - Export to Salesforce
+        - Send SMS
+        - Next Appointment
+        - Create Invoice
+        - SMS Campaign
+        - Take Snapshot
+        - Send Email...
+        - Send "I am on my way"...
+        - Send "Remember me?"...
+        - Schedule Appointment
+        - Get Directions...
+        - Send Email
+        - Schedule Follow up
+        - Create Task
+        - Trigger Zap
+    Lead:
+      title: Lead
+      type: object
+      properties:
+        _id:
+          title: ID
+          type: string
+          format: uuid
+        fullName:
+          title: Full Name
+          type: string
+        phone:
+          title: Phone
+          type: string
+          format: phone
+        email:
+          title: E-mail
+          type: string
+          format: email
+        address:
+          title: Address
+          type: string
+        city:
+          title: City
+          type: string
+        state:
+          title: State
+          type: string
+        postalCode:
+          title: Postal Code
+          type: string
+        country:
+          title: Country
+          type: string
+          example: United States
+        userId:
+          title: Assigned To
+          type: string
+        nextAppointmentId:
+          title: Next Appointment
+          type: string
+        objectStatusId:
+          title: Status
+          type: string
+          example: 1d0d0bf0-4c72-4b79-8d68-bd11802df9ec
+        organizationId:
+          title: Organization
+          type: string
+        sfLeadSourceId:
+          title: HDYHAU?
+          type: string
+        leadTypeId:
+          title: Lead Type
+          type: string
+        phonePreferences:
+          title: Phone Instructions
+          enum:
+            - OptedIn
+            - OptedOut
+            - Unknown
+          type: string
+        smsPreferences:
+          title: Texting Instructions
+          enum:
+            - OptedIn
+            - OptedOut
+            - Unknown
+          type: string
+        emailPreferences:
+          title: Email Instructions
+          enum:
+            - OptedIn
+            - OptedOut
+            - Unknown
+          type: string
+        convertedDate:
+          title: Converted On
+          type: string
+          format: date-time
+        isActive:
+          title: Active?
+          type: boolean
+        flowId:
+          title: Flow
+          type: string
+          example: 89020cdc-838d-4d24-94ab-0b41f106f6ca
+        notes:
+          title: Initial Notes
+          type: string
+        tags:
+          title: Tags
+          type: array
+          items:
+            type: string
+        createdDate:
+          title: Created
+          type: string
+          format: date-time
+        lastModifiedDate:
+          title: Last Modified
+          type: string
+          format: date-time
+        integrations:
+          title: Integrations
+          type: array
+          items:
+            $ref: '#/components/schemas/LeadIntegration'
+        Integrations|Salesforce|Lead:
+          title: Salesforce Lead
+        Location:
+          title: Location (Map)
+        LocationDistance:
+          title: Distance from Location
+        Test:
+          title: Test Calculation
+        appointments:
+          title: Appointments
+          type: array
+          items:
+            $ref: '#/components/schemas/Appointment'
+        organization:
+          $ref: '#/components/schemas/Organization'
+        user:
+          $ref: '#/components/schemas/User'
+        nextAppointment:
+          $ref: '#/components/schemas/Appointment'
+      description: Lead
+    update--Lead--request:
+      title: 'Lead: Update Body'
+      required:
+        - fullName
+      type: object
+      properties:
+        fullName:
+          title: Full Name
+          type: string
+        phone:
+          title: Phone
+          type: string
+          format: phone
+        email:
+          title: E-mail
+          type: string
+          format: email
+        address:
+          title: Address
+          type: string
+        city:
+          title: City
+          type: string
+        state:
+          title: State
+          type: string
+        postalCode:
+          title: Postal Code
+          type: string
+        country:
+          title: Country
+          type: string
+          example: United States
+        userId:
+          title: Assigned To
+          type: string
+        phonePreferences:
+          title: Phone Instructions
+          enum:
+            - OptedIn
+            - OptedOut
+            - Unknown
+          type: string
+        smsPreferences:
+          title: Texting Instructions
+          enum:
+            - OptedIn
+            - OptedOut
+            - Unknown
+          type: string
+        emailPreferences:
+          title: Email Instructions
+          enum:
+            - OptedIn
+            - OptedOut
+            - Unknown
+          type: string
+        notes:
+          title: Initial Notes
+          type: string
+        tags:
+          title: Tags
+          type: array
+          items:
+            type: string
+      description: Request Body to Update Lead
+    create--Lead--request:
+      title: 'Lead: Create Body'
+      required:
+        - fullName
+      type: object
+      properties:
+        fullName:
+          title: Full Name
+          type: string
+        phone:
+          title: Phone
+          type: string
+          format: phone
+        email:
+          title: E-mail
+          type: string
+          format: email
+        address:
+          title: Address
+          type: string
+        city:
+          title: City
+          type: string
+        state:
+          title: State
+          type: string
+        postalCode:
+          title: Postal Code
+          type: string
+        country:
+          title: Country
+          type: string
+          example: United States
+        userId:
+          title: Assigned To
+          type: string
+        objectStatusId:
+          title: Status
+          type: string
+          example: 1d0d0bf0-4c72-4b79-8d68-bd11802df9ec
+        sfLeadSourceId:
+          title: HDYHAU?
+          type: string
+        leadTypeId:
+          title: Lead Type
+          type: string
+        phonePreferences:
+          title: Phone Instructions
+          enum:
+            - OptedIn
+            - OptedOut
+            - Unknown
+          type: string
+        smsPreferences:
+          title: Texting Instructions
+          enum:
+            - OptedIn
+            - OptedOut
+            - Unknown
+          type: string
+        emailPreferences:
+          title: Email Instructions
+          enum:
+            - OptedIn
+            - OptedOut
+            - Unknown
+          type: string
+        flowId:
+          title: Flow
+          type: string
+          example: 89020cdc-838d-4d24-94ab-0b41f106f6ca
+        notes:
+          title: Initial Notes
+          type: string
+      description: Request Body to Create Lead
+    Lead-indexed-fields:
+      title: 'Lead: Filterable Fields'
+      enum:
+        - _id
+        - '#text'
+        - convertedDate
+        - createdDate
+        - flowId
+        - integrations_externalId
+        - integrations_integrationId
+        - integrations_tag
+        - isActive
+        - leadTypeId
+        - Location
+        - LocationDistance
+        - objectStatusId
+        - organizationId
+        - phone
+        - Refs|v
+        - tags
+        - userId
+      type: string
+      description: Filterable fields for Lead
+    Lead-fields:
+      title: 'Lead: Fields'
+      enum:
+        - _id
+        - address
+        - city
+        - convertedDate
+        - country
+        - createdDate
+        - email
+        - emailPreferences
+        - flowId
+        - fullName
+        - integrations
+        - integrations_externalId
+        - integrations_integrationId
+        - integrations_status
+        - integrations_tag
+        - integrations_url
+        - Integrations|Salesforce|Lead
+        - isActive
+        - lastModifiedDate
+        - leadTypeId
+        - Location
+        - LocationDistance
+        - nextAppointment
+        - nextAppointment__id
+        - nextAppointment_cancelledByUserId
+        - nextAppointment_cancelledDate
+        - nextAppointment_createdByUserId
+        - nextAppointment_createdDate
+        - nextAppointment_description
+        - nextAppointment_endUtc
+        - nextAppointment_iCal
+        - nextAppointment_leadId
+        - nextAppointment_localDate
+        - nextAppointment_localTime
+        - nextAppointment_name
+        - nextAppointment_Scheduler
+        - nextAppointment_sfProjectId
+        - nextAppointment_startUtc
+        - nextAppointment_timeZone
+        - nextAppointment_tool
+        - nextAppointment_userId
+        - nextAppointmentId
+        - notes
+        - objectStatusId
+        - organization
+        - organization_AccountId
+        - organization_Description
+        - organization_Email
+        - organization_Name
+        - organization_phone
+        - organization_timeZone
+        - organizationId
+        - phone
+        - phonePreferences
+        - postalCode
+        - Refs|v
+        - sfLeadSourceId
+        - smsPreferences
+        - state
+        - tags
+        - Test
+        - user
+        - user__t
+        - user_AccountId
+        - user_name
+        - user_organizationId
+        - user_phone
+        - user_timeZone
+        - userId
+      type: string
+      description: Fields for Lead
+    Lead-condition:
+      title: 'Lead: Filter Condition'
+      type: object
+      properties:
+        fieldName:
+          $ref: '#/components/schemas/Lead-indexed-fields'
+        operator:
+          $ref: '#/components/schemas/api-pi-condition-operator'
+        value:
+          title: Value
+          description: Value to be used in the filter operation
+      description: Field Condition for Lead
+    filter--Lead--request:
+      title: 'Lead: Filter Body'
+      type: object
+      properties:
+        top:
+          title: Top
+          minimum: 0
+          type: integer
+          description: Max Number of objects to return
+        skip:
+          title: Skip
+          minimum: 0
+          type: integer
+          description: Number of objects to skip
+        orderBy:
+          $ref: '#/components/schemas/Lead-indexed-fields'
+        reverseOrder:
+          title: Reverse Order
+          type: boolean
+          description: Order By in Reverse Order (Descending)
+        fields:
+          title: Fields to return
+          type: array
+          items:
+            $ref: '#/components/schemas/Lead-fields'
+          description: List of fields to return
+        criteria:
+          title: Filter Criteria
+          type: array
+          items:
+            $ref: '#/components/schemas/Lead-condition'
+          description: Conditions to be used to filter objects
+      description: Request Body to filter Lead
+    filter--Lead--response:
+      title: 'Lead: Filter Response'
+      type: array
+      items:
+        $ref: '#/components/schemas/Lead'
+      description: Response Body to filter Lead
+    LeadIntegration:
+      title: Lead Integration
+      type: object
+      properties:
+        tag:
+          title: Tag
+          type: string
+        externalId:
+          title: ExternalId
+          type: string
+        status:
+          title: Status
+          type: string
+        url:
+          title: Url
+          type: string
+          format: uri
+        integrationId:
+          title: Integration
+          type: string
+      description: Lead Integration
+    Organization:
+      title: Organization
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+      description: Organization
+    Organization-indexed-fields:
+      title: 'Organization: Filterable Fields'
+      enum:
+        - '#text'
+        - AccountId
+        - Name
+      type: string
+      description: Filterable fields for Organization
+    Organization-fields:
+      title: 'Organization: Fields'
+      enum:
+        - AccountId
+        - Description
+        - Email
+        - Name
+        - phone
+        - timeZone
+      type: string
+      description: Fields for Organization
+    Organization-condition:
+      title: 'Organization: Filter Condition'
+      type: object
+      properties:
+        fieldName:
+          $ref: '#/components/schemas/Organization-indexed-fields'
+        operator:
+          $ref: '#/components/schemas/api-pi-condition-operator'
+        value:
+          title: Value
+          description: Value to be used in the filter operation
+      description: Field Condition for Organization
+    filter--Organization--request:
+      title: 'Organization: Filter Body'
+      type: object
+      properties:
+        top:
+          title: Top
+          minimum: 0
+          type: integer
+          description: Max Number of objects to return
+        skip:
+          title: Skip
+          minimum: 0
+          type: integer
+          description: Number of objects to skip
+        orderBy:
+          $ref: '#/components/schemas/Organization-indexed-fields'
+        reverseOrder:
+          title: Reverse Order
+          type: boolean
+          description: Order By in Reverse Order (Descending)
+        fields:
+          title: Fields to return
+          type: array
+          items:
+            $ref: '#/components/schemas/Organization-fields'
+          description: List of fields to return
+        criteria:
+          title: Filter Criteria
+          type: array
+          items:
+            $ref: '#/components/schemas/Organization-condition'
+          description: Conditions to be used to filter objects
+      description: Request Body to filter Organization
+    filter--Organization--response:
+      title: 'Organization: Filter Response'
+      type: array
+      items:
+        $ref: '#/components/schemas/Organization'
+      description: Response Body to filter Organization
+    User:
+      title: User
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+      description: User
+    User-indexed-fields:
+      title: 'User: Filterable Fields'
+      enum:
+        - _t
+        - '#text'
+        - AccountId
+        - name
+        - organizationId
+      type: string
+      description: Filterable fields for User
+    User-fields:
+      title: 'User: Fields'
+      enum:
+        - _t
+        - AccountId
+        - name
+        - organizationId
+        - phone
+        - timeZone
+      type: string
+      description: Fields for User
+    User-condition:
+      title: 'User: Filter Condition'
+      type: object
+      properties:
+        fieldName:
+          $ref: '#/components/schemas/User-indexed-fields'
+        operator:
+          $ref: '#/components/schemas/api-pi-condition-operator'
+        value:
+          title: Value
+          description: Value to be used in the filter operation
+      description: Field Condition for User
+    filter--User--request:
+      title: 'User: Filter Body'
+      type: object
+      properties:
+        top:
+          title: Top
+          minimum: 0
+          type: integer
+          description: Max Number of objects to return
+        skip:
+          title: Skip
+          minimum: 0
+          type: integer
+          description: Number of objects to skip
+        orderBy:
+          $ref: '#/components/schemas/User-indexed-fields'
+        reverseOrder:
+          title: Reverse Order
+          type: boolean
+          description: Order By in Reverse Order (Descending)
+        fields:
+          title: Fields to return
+          type: array
+          items:
+            $ref: '#/components/schemas/User-fields'
+          description: List of fields to return
+        criteria:
+          title: Filter Criteria
+          type: array
+          items:
+            $ref: '#/components/schemas/User-condition'
+          description: Conditions to be used to filter objects
+      description: Request Body to filter User
+    filter--User--response:
+      title: 'User: Filter Response'
+      type: array
+      items:
+        $ref: '#/components/schemas/User'
+      description: Response Body to filter User
+    Customer:
+      title: 'Customer: Synced Salesforce Object'
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EntityOwnedModel'
+      properties:
+        externalId:
+          title: Salesforce Id
+          type: string
+        isActive:
+          title: Active?
+          type: boolean
+        properties:
+          $ref: '#/components/schemas/SfCustomer'
+        flowId:
+          title: Flow
+          type: string
+        objectStatusId:
+          title: Object Status
+          type: string
+      description: 'Customer: Synced Salesforce Object'
+    update--Customer--request:
+      title: 'Customer: Synced Salesforce Object: Update Body'
+      required:
+        - properties
+      type: object
+      properties:
+        isActive:
+          title: Active?
+          type: boolean
+        properties:
+          $ref: '#/components/schemas/update--SfCustomer--request'
+      description: 'Request Body to Update Customer: Synced Salesforce Object'
+    Customer-indexed-fields:
+      title: 'Customer: Synced Salesforce Object: Filterable Fields'
+      enum:
+        - _id
+        - '#text'
+        - entityId
+        - externalId
+        - name
+        - properties_callInstructions
+        - properties_emailInstructions
+        - properties_leadId
+        - properties_leadSource
+        - properties_preferredMethodOfContact
+      type: string
+      description: 'Filterable fields for Customer: Synced Salesforce Object'
+    Customer-fields:
+      title: 'Customer: Synced Salesforce Object: Fields'
+      enum:
+        - _id
+        - description
+        - entityId
+        - externalId
+        - flowId
+        - isActive
+        - name
+        - objectStatusId
+        - properties
+        - properties_accountNumber
+        - properties_address
+        - properties_addressDescription
+        - properties_callInstructions
+        - properties_city
+        - properties_country
+        - properties_description
+        - properties_email
+        - properties_email2
+        - properties_email3
+        - properties_emailInstructions
+        - properties_externalId
+        - properties_fax
+        - properties_lastModifiedDate
+        - properties_leadId
+        - properties_leadSource
+        - properties_mobilePhone
+        - properties_name
+        - properties_notes
+        - properties_phone
+        - properties_phone2
+        - properties_phone3
+        - properties_postalCode
+        - properties_preferredMethodOfContact
+        - properties_projectNotes
+        - properties_state
+      type: string
+      description: 'Fields for Customer: Synced Salesforce Object'
+    Customer-condition:
+      title: 'Customer: Synced Salesforce Object: Filter Condition'
+      type: object
+      properties:
+        fieldName:
+          $ref: '#/components/schemas/Customer-indexed-fields'
+        operator:
+          $ref: '#/components/schemas/api-pi-condition-operator'
+        value:
+          title: Value
+          description: Value to be used in the filter operation
+      description: 'Field Condition for Customer: Synced Salesforce Object'
+    filter--Customer--request:
+      title: 'Customer: Synced Salesforce Object: Filter Body'
+      type: object
+      properties:
+        top:
+          title: Top
+          minimum: 0
+          type: integer
+          description: Max Number of objects to return
+        skip:
+          title: Skip
+          minimum: 0
+          type: integer
+          description: Number of objects to skip
+        orderBy:
+          $ref: '#/components/schemas/Customer-indexed-fields'
+        reverseOrder:
+          title: Reverse Order
+          type: boolean
+          description: Order By in Reverse Order (Descending)
+        fields:
+          title: Fields to return
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer-fields'
+          description: List of fields to return
+        criteria:
+          title: Filter Criteria
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer-condition'
+          description: Conditions to be used to filter objects
+      description: 'Request Body to filter Customer: Synced Salesforce Object'
+    filter--Customer--response:
+      title: 'Customer: Synced Salesforce Object: Filter Response'
+      type: array
+      items:
+        $ref: '#/components/schemas/Customer'
+      description: 'Response Body to filter Customer: Synced Salesforce Object'
+    ExternalLink:
+      title: 'ExternalLink: Synced Salesforce Object'
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EntityOwnedModel'
+      properties:
+        externalId:
+          title: Salesforce Id
+          type: string
+        Properties:
+          $ref: '#/components/schemas/SfExternalLink'
+      description: 'ExternalLink: Synced Salesforce Object'
+    update--ExternalLink--request:
+      title: 'ExternalLink: Synced Salesforce Object: Update Body'
+      type: object
+      properties:
+        Properties:
+          $ref: '#/components/schemas/update--SfExternalLink--request'
+      description: 'Request Body to Update ExternalLink: Synced Salesforce Object'
+    ExternalLink-indexed-fields:
+      title: 'ExternalLink: Synced Salesforce Object: Filterable Fields'
+      enum:
+        - _id
+        - '#text'
+        - entityId
+        - name
+        - Properties_floorplanExternalId
+        - Properties_projectExternalId
+        - Properties_proposalExternalId
+        - Properties_relatedObjectType
+        - Properties_roomExternalId
+        - Properties_type
+      type: string
+      description: 'Filterable fields for ExternalLink: Synced Salesforce Object'
+    ExternalLink-fields:
+      title: 'ExternalLink: Synced Salesforce Object: Fields'
+      enum:
+        - _id
+        - description
+        - entityId
+        - externalId
+        - name
+        - Properties
+        - Properties_description
+        - Properties_externalId
+        - Properties_floorplanExternalId
+        - Properties_IsDeleted
+        - Properties_isVideo
+        - Properties_name
+        - Properties_projectExternalId
+        - Properties_proposalExternalId
+        - Properties_relatedObjectType
+        - Properties_roomExternalId
+        - Properties_type
+        - Properties_url
+      type: string
+      description: 'Fields for ExternalLink: Synced Salesforce Object'
+    ExternalLink-condition:
+      title: 'ExternalLink: Synced Salesforce Object: Filter Condition'
+      type: object
+      properties:
+        fieldName:
+          $ref: '#/components/schemas/ExternalLink-indexed-fields'
+        operator:
+          $ref: '#/components/schemas/api-pi-condition-operator'
+        value:
+          title: Value
+          description: Value to be used in the filter operation
+      description: 'Field Condition for ExternalLink: Synced Salesforce Object'
+    filter--ExternalLink--request:
+      title: 'ExternalLink: Synced Salesforce Object: Filter Body'
+      type: object
+      properties:
+        top:
+          title: Top
+          minimum: 0
+          type: integer
+          description: Max Number of objects to return
+        skip:
+          title: Skip
+          minimum: 0
+          type: integer
+          description: Number of objects to skip
+        orderBy:
+          $ref: '#/components/schemas/ExternalLink-indexed-fields'
+        reverseOrder:
+          title: Reverse Order
+          type: boolean
+          description: Order By in Reverse Order (Descending)
+        fields:
+          title: Fields to return
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalLink-fields'
+          description: List of fields to return
+        criteria:
+          title: Filter Criteria
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalLink-condition'
+          description: Conditions to be used to filter objects
+      description: 'Request Body to filter ExternalLink: Synced Salesforce Object'
+    filter--ExternalLink--response:
+      title: 'ExternalLink: Synced Salesforce Object: Filter Response'
+      type: array
+      items:
+        $ref: '#/components/schemas/ExternalLink'
+      description: 'Response Body to filter ExternalLink: Synced Salesforce Object'
+    MaterialAssignment:
+      title: 'Material Assignment: Synced Salesforce Object'
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EntityOwnedModel'
+      properties:
+        externalId:
+          title: Salesforce Id
+          type: string
+        isActive:
+          title: Active?
+          type: boolean
+        properties:
+          $ref: '#/components/schemas/SfMaterialAssignment'
+        flowId:
+          title: Flow
+          type: string
+        objectStatusId:
+          title: Object Status
+          type: string
+      description: 'Material Assignment: Synced Salesforce Object'
+    MaterialAssignment-indexed-fields:
+      title: 'Material Assignment: Synced Salesforce Object: Filterable Fields'
+      enum:
+        - _id
+        - '#text'
+        - entityId
+        - isActive
+        - name
+        - properties_externalId
+        - properties_isDeleted
+        - properties_proposalExternalId
+        - properties_roomExternalId
+      type: string
+      description: 'Filterable fields for Material Assignment: Synced Salesforce Object'
+    MaterialAssignment-fields:
+      title: 'Material Assignment: Synced Salesforce Object: Fields'
+      enum:
+        - _id
+        - description
+        - entityId
+        - externalId
+        - flowId
+        - isActive
+        - name
+        - objectStatusId
+        - properties
+        - properties_area
+        - properties_externalId
+        - properties_isDeleted
+        - properties_name
+        - properties_perimeter
+        - properties_proposalExternalId
+        - properties_roomExternalId
+      type: string
+      description: 'Fields for Material Assignment: Synced Salesforce Object'
+    MaterialAssignment-condition:
+      title: 'Material Assignment: Synced Salesforce Object: Filter Condition'
+      type: object
+      properties:
+        fieldName:
+          $ref: '#/components/schemas/MaterialAssignment-indexed-fields'
+        operator:
+          $ref: '#/components/schemas/api-pi-condition-operator'
+        value:
+          title: Value
+          description: Value to be used in the filter operation
+      description: 'Field Condition for Material Assignment: Synced Salesforce Object'
+    filter--MaterialAssignment--request:
+      title: 'Material Assignment: Synced Salesforce Object: Filter Body'
+      type: object
+      properties:
+        top:
+          title: Top
+          minimum: 0
+          type: integer
+          description: Max Number of objects to return
+        skip:
+          title: Skip
+          minimum: 0
+          type: integer
+          description: Number of objects to skip
+        orderBy:
+          $ref: '#/components/schemas/MaterialAssignment-indexed-fields'
+        reverseOrder:
+          title: Reverse Order
+          type: boolean
+          description: Order By in Reverse Order (Descending)
+        fields:
+          title: Fields to return
+          type: array
+          items:
+            $ref: '#/components/schemas/MaterialAssignment-fields'
+          description: List of fields to return
+        criteria:
+          title: Filter Criteria
+          type: array
+          items:
+            $ref: '#/components/schemas/MaterialAssignment-condition'
+          description: Conditions to be used to filter objects
+      description: 'Request Body to filter Material Assignment: Synced Salesforce Object'
+    filter--MaterialAssignment--response:
+      title: 'Material Assignment: Synced Salesforce Object: Filter Response'
+      type: array
+      items:
+        $ref: '#/components/schemas/MaterialAssignment'
+      description: 'Response Body to filter Material Assignment: Synced Salesforce Object'
+    proposalLine:
+      title: 'Option Line Item: Synced Salesforce Object'
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EntityOwnedModel'
+      properties:
+        externalId:
+          title: Salesforce Id
+          type: string
+        isActive:
+          title: Active?
+          type: boolean
+        properties:
+          $ref: '#/components/schemas/SfProposalLine'
+        flowId:
+          title: Flow
+          type: string
+        objectStatusId:
+          title: Object Status
+          type: string
+      description: 'Option Line Item: Synced Salesforce Object'
+    proposalLine-indexed-fields:
+      title: 'Option Line Item: Synced Salesforce Object: Filterable Fields'
+      enum:
+        - _id
+        - '#text'
+        - entityId
+        - name
+        - properties_index
+        - properties_isDeleted
+        - properties_itemExternalId
+        - properties_proposalExternalId
+      type: string
+      description: 'Filterable fields for Option Line Item: Synced Salesforce Object'
+    proposalLine-fields:
+      title: 'Option Line Item: Synced Salesforce Object: Fields'
+      enum:
+        - _id
+        - description
+        - entityId
+        - externalId
+        - flowId
+        - isActive
+        - name
+        - objectStatusId
+        - properties
+        - properties_cost1
+        - properties_cost2
+        - properties_description
+        - properties_externalId
+        - properties_index
+        - properties_isDeleted
+        - properties_isDiscount
+        - properties_itemExternalId
+        - properties_margin
+        - properties_price1
+        - properties_price2
+        - properties_proposalExternalId
+        - properties_quantity
+        - properties_sku
+        - properties_totalCost
+        - properties_totalPrice
+        - properties_unitCost
+        - properties_unitPrice
+        - properties_wasteFactor
+      type: string
+      description: 'Fields for Option Line Item: Synced Salesforce Object'
+    proposalLine-condition:
+      title: 'Option Line Item: Synced Salesforce Object: Filter Condition'
+      type: object
+      properties:
+        fieldName:
+          $ref: '#/components/schemas/proposalLine-indexed-fields'
+        operator:
+          $ref: '#/components/schemas/api-pi-condition-operator'
+        value:
+          title: Value
+          description: Value to be used in the filter operation
+      description: 'Field Condition for Option Line Item: Synced Salesforce Object'
+    filter--proposalLine--request:
+      title: 'Option Line Item: Synced Salesforce Object: Filter Body'
+      type: object
+      properties:
+        top:
+          title: Top
+          minimum: 0
+          type: integer
+          description: Max Number of objects to return
+        skip:
+          title: Skip
+          minimum: 0
+          type: integer
+          description: Number of objects to skip
+        orderBy:
+          $ref: '#/components/schemas/proposalLine-indexed-fields'
+        reverseOrder:
+          title: Reverse Order
+          type: boolean
+          description: Order By in Reverse Order (Descending)
+        fields:
+          title: Fields to return
+          type: array
+          items:
+            $ref: '#/components/schemas/proposalLine-fields'
+          description: List of fields to return
+        criteria:
+          title: Filter Criteria
+          type: array
+          items:
+            $ref: '#/components/schemas/proposalLine-condition'
+          description: Conditions to be used to filter objects
+      description: 'Request Body to filter Option Line Item: Synced Salesforce Object'
+    filter--proposalLine--response:
+      title: 'Option Line Item: Synced Salesforce Object: Filter Response'
+      type: array
+      items:
+        $ref: '#/components/schemas/proposalLine'
+      description: 'Response Body to filter Option Line Item: Synced Salesforce Object'
+    Proposal:
+      title: 'Option: Synced Salesforce Object'
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EntityOwnedModel'
+      properties:
+        externalId:
+          title: Salesforce Id
+          type: string
+        isActive:
+          title: Active?
+          type: boolean
+        properties:
+          $ref: '#/components/schemas/SfProposal'
+        flowId:
+          title: Flow
+          type: string
+        objectStatusId:
+          title: Object Status
+          type: string
+      description: 'Option: Synced Salesforce Object'
+    Proposal-indexed-fields:
+      title: 'Option: Synced Salesforce Object: Filterable Fields'
+      enum:
+        - _id
+        - '#text'
+        - entityId
+        - externalId
+        - isActive
+        - name
+        - properties_createdDate
+        - properties_customerExternalId
+        - properties_name
+        - properties_projectExternalId
+        - properties_status
+      type: string
+      description: 'Filterable fields for Option: Synced Salesforce Object'
+    Proposal-fields:
+      title: 'Option: Synced Salesforce Object: Fields'
+      enum:
+        - _id
+        - description
+        - entityId
+        - externalId
+        - flowId
+        - isActive
+        - name
+        - objectStatusId
+        - properties
+        - properties_createdDate
+        - properties_customerExternalId
+        - properties_externalId
+        - properties_isDeleted
+        - properties_landedDate
+        - properties_name
+        - properties_notes
+        - properties_producedDate
+        - properties_projectExternalId
+        - properties_proposalNumber
+        - properties_status
+        - properties_totalCost
+        - properties_totalPrice
+        - properties_totalTax
+      type: string
+      description: 'Fields for Option: Synced Salesforce Object'
+    Proposal-condition:
+      title: 'Option: Synced Salesforce Object: Filter Condition'
+      type: object
+      properties:
+        fieldName:
+          $ref: '#/components/schemas/Proposal-indexed-fields'
+        operator:
+          $ref: '#/components/schemas/api-pi-condition-operator'
+        value:
+          title: Value
+          description: Value to be used in the filter operation
+      description: 'Field Condition for Option: Synced Salesforce Object'
+    filter--Proposal--request:
+      title: 'Option: Synced Salesforce Object: Filter Body'
+      type: object
+      properties:
+        top:
+          title: Top
+          minimum: 0
+          type: integer
+          description: Max Number of objects to return
+        skip:
+          title: Skip
+          minimum: 0
+          type: integer
+          description: Number of objects to skip
+        orderBy:
+          $ref: '#/components/schemas/Proposal-indexed-fields'
+        reverseOrder:
+          title: Reverse Order
+          type: boolean
+          description: Order By in Reverse Order (Descending)
+        fields:
+          title: Fields to return
+          type: array
+          items:
+            $ref: '#/components/schemas/Proposal-fields'
+          description: List of fields to return
+        criteria:
+          title: Filter Criteria
+          type: array
+          items:
+            $ref: '#/components/schemas/Proposal-condition'
+          description: Conditions to be used to filter objects
+      description: 'Request Body to filter Option: Synced Salesforce Object'
+    filter--Proposal--response:
+      title: 'Option: Synced Salesforce Object: Filter Response'
+      type: array
+      items:
+        $ref: '#/components/schemas/Proposal'
+      description: 'Response Body to filter Option: Synced Salesforce Object'
+    Room:
+      title: 'Room: Synced Salesforce Object'
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EntityOwnedModel'
+      properties:
+        externalId:
+          title: Salesforce Id
+          type: string
+        isActive:
+          title: Active?
+          type: boolean
+        properties:
+          $ref: '#/components/schemas/SfRoom'
+        flowId:
+          title: Flow
+          type: string
+        objectStatusId:
+          title: Object Status
+          type: string
+      description: 'Room: Synced Salesforce Object'
+    Room-indexed-fields:
+      title: 'Room: Synced Salesforce Object: Filterable Fields'
+      enum:
+        - _id
+        - '#text'
+        - entityId
+        - externalId
+        - isActive
+        - name
+        - properties_floorplanExternalId
+        - properties_name
+        - properties_type
+      type: string
+      description: 'Filterable fields for Room: Synced Salesforce Object'
+    Room-fields:
+      title: 'Room: Synced Salesforce Object: Fields'
+      enum:
+        - _id
+        - description
+        - entityId
+        - externalId
+        - flowId
+        - isActive
+        - name
+        - objectStatusId
+        - properties
+        - properties_area
+        - properties_externalId
+        - properties_floorplanExternalId
+        - properties_isDeleted
+        - properties_name
+        - properties_notes
+        - properties_perimeter
+        - properties_takeoutArea
+        - properties_type
+      type: string
+      description: 'Fields for Room: Synced Salesforce Object'
+    Room-condition:
+      title: 'Room: Synced Salesforce Object: Filter Condition'
+      type: object
+      properties:
+        fieldName:
+          $ref: '#/components/schemas/Room-indexed-fields'
+        operator:
+          $ref: '#/components/schemas/api-pi-condition-operator'
+        value:
+          title: Value
+          description: Value to be used in the filter operation
+      description: 'Field Condition for Room: Synced Salesforce Object'
+    filter--Room--request:
+      title: 'Room: Synced Salesforce Object: Filter Body'
+      type: object
+      properties:
+        top:
+          title: Top
+          minimum: 0
+          type: integer
+          description: Max Number of objects to return
+        skip:
+          title: Skip
+          minimum: 0
+          type: integer
+          description: Number of objects to skip
+        orderBy:
+          $ref: '#/components/schemas/Room-indexed-fields'
+        reverseOrder:
+          title: Reverse Order
+          type: boolean
+          description: Order By in Reverse Order (Descending)
+        fields:
+          title: Fields to return
+          type: array
+          items:
+            $ref: '#/components/schemas/Room-fields'
+          description: List of fields to return
+        criteria:
+          title: Filter Criteria
+          type: array
+          items:
+            $ref: '#/components/schemas/Room-condition'
+          description: Conditions to be used to filter objects
+      description: 'Request Body to filter Room: Synced Salesforce Object'
+    filter--Room--response:
+      title: 'Room: Synced Salesforce Object: Filter Response'
+      type: array
+      items:
+        $ref: '#/components/schemas/Room'
+      description: 'Response Body to filter Room: Synced Salesforce Object'
+    SectionLine:
+      title: 'Section Line Item: Synced Salesforce Object'
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EntityOwnedModel'
+      properties:
+        externalId:
+          title: Salesforce Id
+          type: string
+        isActive:
+          title: Active?
+          type: boolean
+        properties:
+          $ref: '#/components/schemas/SfSectionLine'
+        flowId:
+          title: Flow
+          type: string
+        objectStatusId:
+          title: Object Status
+          type: string
+      description: 'Section Line Item: Synced Salesforce Object'
+    update--SectionLine--request:
+      title: 'Section Line Item: Synced Salesforce Object: Update Body'
+      type: object
+      description: 'Request Body to Update Section Line Item: Synced Salesforce Object'
+    SectionLine-indexed-fields:
+      title: 'Section Line Item: Synced Salesforce Object: Filterable Fields'
+      enum:
+        - _id
+        - '#text'
+        - entityId
+        - externalId
+        - isActive
+        - name
+        - properties_index
+        - properties_isDeleted
+        - properties_itemExternalId
+        - properties_sectionExternalId
+      type: string
+      description: 'Filterable fields for Section Line Item: Synced Salesforce Object'
+    SectionLine-fields:
+      title: 'Section Line Item: Synced Salesforce Object: Fields'
+      enum:
+        - _id
+        - description
+        - entityId
+        - externalId
+        - flowId
+        - isActive
+        - name
+        - objectStatusId
+        - properties
+        - properties_cost1
+        - properties_cost2
+        - properties_description
+        - properties_index
+        - properties_isDeleted
+        - properties_isDiscount
+        - properties_itemExternalId
+        - properties_margin
+        - properties_price1
+        - properties_price2
+        - properties_quantity
+        - properties_sectionExternalId
+        - properties_sku
+        - properties_taxFactor
+        - properties_totalCost
+        - properties_totalPrice
+        - properties_totalTax
+        - properties_unitCost
+        - properties_unitPrice
+        - properties_wasteFactor
+      type: string
+      description: 'Fields for Section Line Item: Synced Salesforce Object'
+    SectionLine-condition:
+      title: 'Section Line Item: Synced Salesforce Object: Filter Condition'
+      type: object
+      properties:
+        fieldName:
+          $ref: '#/components/schemas/SectionLine-indexed-fields'
+        operator:
+          $ref: '#/components/schemas/api-pi-condition-operator'
+        value:
+          title: Value
+          description: Value to be used in the filter operation
+      description: 'Field Condition for Section Line Item: Synced Salesforce Object'
+    filter--SectionLine--request:
+      title: 'Section Line Item: Synced Salesforce Object: Filter Body'
+      type: object
+      properties:
+        top:
+          title: Top
+          minimum: 0
+          type: integer
+          description: Max Number of objects to return
+        skip:
+          title: Skip
+          minimum: 0
+          type: integer
+          description: Number of objects to skip
+        orderBy:
+          $ref: '#/components/schemas/SectionLine-indexed-fields'
+        reverseOrder:
+          title: Reverse Order
+          type: boolean
+          description: Order By in Reverse Order (Descending)
+        fields:
+          title: Fields to return
+          type: array
+          items:
+            $ref: '#/components/schemas/SectionLine-fields'
+          description: List of fields to return
+        criteria:
+          title: Filter Criteria
+          type: array
+          items:
+            $ref: '#/components/schemas/SectionLine-condition'
+          description: Conditions to be used to filter objects
+      description: 'Request Body to filter Section Line Item: Synced Salesforce Object'
+    filter--SectionLine--response:
+      title: 'Section Line Item: Synced Salesforce Object: Filter Response'
+      type: array
+      items:
+        $ref: '#/components/schemas/SectionLine'
+      description: 'Response Body to filter Section Line Item: Synced Salesforce Object'
+    Section:
+      title: 'Section: Synced Salesforce Object'
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EntityOwnedModel'
+      properties:
+        externalId:
+          title: Salesforce Id
+          type: string
+        isActive:
+          title: Active?
+          type: boolean
+        properties:
+          $ref: '#/components/schemas/SfSection'
+        flowId:
+          title: Flow
+          type: string
+        objectStatusId:
+          title: Object Status
+          type: string
+      description: 'Section: Synced Salesforce Object'
+    update--Section--request:
+      title: 'Section: Synced Salesforce Object: Update Body'
+      type: object
+      properties:
+        properties:
+          $ref: '#/components/schemas/update--SfSection--request'
+      description: 'Request Body to Update Section: Synced Salesforce Object'
+    Section-indexed-fields:
+      title: 'Section: Synced Salesforce Object: Filterable Fields'
+      enum:
+        - _id
+        - '#text'
+        - entityId
+        - isActive
+        - name
+        - properties_name
+        - properties_proposalExternalId
+      type: string
+      description: 'Filterable fields for Section: Synced Salesforce Object'
+    Section-fields:
+      title: 'Section: Synced Salesforce Object: Fields'
+      enum:
+        - _id
+        - description
+        - entityId
+        - externalId
+        - flowId
+        - isActive
+        - name
+        - objectStatusId
+        - properties
+        - properties_area
+        - properties_externalId
+        - properties_name
+        - properties_perimeter
+        - properties_proposalExternalId
+        - properties_wasteFactor
+      type: string
+      description: 'Fields for Section: Synced Salesforce Object'
+    Section-condition:
+      title: 'Section: Synced Salesforce Object: Filter Condition'
+      type: object
+      properties:
+        fieldName:
+          $ref: '#/components/schemas/Section-indexed-fields'
+        operator:
+          $ref: '#/components/schemas/api-pi-condition-operator'
+        value:
+          title: Value
+          description: Value to be used in the filter operation
+      description: 'Field Condition for Section: Synced Salesforce Object'
+    filter--Section--request:
+      title: 'Section: Synced Salesforce Object: Filter Body'
+      type: object
+      properties:
+        top:
+          title: Top
+          minimum: 0
+          type: integer
+          description: Max Number of objects to return
+        skip:
+          title: Skip
+          minimum: 0
+          type: integer
+          description: Number of objects to skip
+        orderBy:
+          $ref: '#/components/schemas/Section-indexed-fields'
+        reverseOrder:
+          title: Reverse Order
+          type: boolean
+          description: Order By in Reverse Order (Descending)
+        fields:
+          title: Fields to return
+          type: array
+          items:
+            $ref: '#/components/schemas/Section-fields'
+          description: List of fields to return
+        criteria:
+          title: Filter Criteria
+          type: array
+          items:
+            $ref: '#/components/schemas/Section-condition'
+          description: Conditions to be used to filter objects
+      description: 'Request Body to filter Section: Synced Salesforce Object'
+    filter--Section--response:
+      title: 'Section: Synced Salesforce Object: Filter Response'
+      type: array
+      items:
+        $ref: '#/components/schemas/Section'
+      description: 'Response Body to filter Section: Synced Salesforce Object'
+    Lead2:
+      title: 'Lead: Synced Salesforce Object'
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EntityOwnedModel'
+      properties:
+        externalId:
+          title: Salesforce Id
+          type: string
+        isActive:
+          title: Active?
+          type: boolean
+        properties:
+          $ref: '#/components/schemas/SfLead'
+        flowId:
+          title: Flow
+          type: string
+        objectStatusId:
+          title: Object Status
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+      description: 'Lead: Synced Salesforce Object'
+    update--Lead2--request:
+      title: 'Lead: Synced Salesforce Object: Update Body'
+      type: object
+      properties:
+        externalId:
+          title: Salesforce Id
+          type: string
+        isActive:
+          title: Active?
+          type: boolean
+        properties:
+          $ref: '#/components/schemas/update--SfLead--request'
+        flowId:
+          title: Flow
+          type: string
+        objectStatusId:
+          title: Object Status
+          type: string
+      description: 'Request Body to Update Lead: Synced Salesforce Object'
+    Lead2-indexed-fields:
+      title: 'Lead: Synced Salesforce Object: Filterable Fields'
+      enum:
+        - _id
+        - '#text'
+        - entityId
+        - name
+      type: string
+      description: 'Filterable fields for Lead: Synced Salesforce Object'
+    Lead2-fields:
+      title: 'Lead: Synced Salesforce Object: Fields'
+      enum:
+        - _id
+        - customer
+        - customer__id
+        - customer_description
+        - customer_entityId
+        - customer_externalId
+        - customer_flowId
+        - customer_isActive
+        - customer_name
+        - customer_objectStatusId
+        - customer_properties
+        - customer_properties_accountNumber
+        - customer_properties_address
+        - customer_properties_addressDescription
+        - customer_properties_callInstructions
+        - customer_properties_city
+        - customer_properties_country
+        - customer_properties_description
+        - customer_properties_email
+        - customer_properties_email2
+        - customer_properties_email3
+        - customer_properties_emailInstructions
+        - customer_properties_externalId
+        - customer_properties_fax
+        - customer_properties_lastModifiedDate
+        - customer_properties_leadId
+        - customer_properties_leadSource
+        - customer_properties_mobilePhone
+        - customer_properties_name
+        - customer_properties_notes
+        - customer_properties_phone
+        - customer_properties_phone2
+        - customer_properties_phone3
+        - customer_properties_postalCode
+        - customer_properties_preferredMethodOfContact
+        - customer_properties_projectNotes
+        - customer_properties_state
+        - description
+        - entityId
+        - externalId
+        - flowId
+        - isActive
+        - name
+        - objectStatusId
+        - properties
+        - properties_address
+        - properties_email
+        - properties_phone
+      type: string
+      description: 'Fields for Lead: Synced Salesforce Object'
+    Lead2-condition:
+      title: 'Lead: Synced Salesforce Object: Filter Condition'
+      type: object
+      properties:
+        fieldName:
+          $ref: '#/components/schemas/Lead2-indexed-fields'
+        operator:
+          $ref: '#/components/schemas/api-pi-condition-operator'
+        value:
+          title: Value
+          description: Value to be used in the filter operation
+      description: 'Field Condition for Lead: Synced Salesforce Object'
+    filter--Lead2--request:
+      title: 'Lead: Synced Salesforce Object: Filter Body'
+      type: object
+      properties:
+        top:
+          title: Top
+          minimum: 0
+          type: integer
+          description: Max Number of objects to return
+        skip:
+          title: Skip
+          minimum: 0
+          type: integer
+          description: Number of objects to skip
+        orderBy:
+          $ref: '#/components/schemas/Lead2-indexed-fields'
+        reverseOrder:
+          title: Reverse Order
+          type: boolean
+          description: Order By in Reverse Order (Descending)
+        fields:
+          title: Fields to return
+          type: array
+          items:
+            $ref: '#/components/schemas/Lead2-fields'
+          description: List of fields to return
+        criteria:
+          title: Filter Criteria
+          type: array
+          items:
+            $ref: '#/components/schemas/Lead2-condition'
+          description: Conditions to be used to filter objects
+      description: 'Request Body to filter Lead: Synced Salesforce Object'
+    filter--Lead2--response:
+      title: 'Lead: Synced Salesforce Object: Filter Response'
+      type: array
+      items:
+        $ref: '#/components/schemas/Lead2'
+      description: 'Response Body to filter Lead: Synced Salesforce Object'
+    ProductItem:
+      title: 'Product: Synced Salesforce Object'
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EntityOwnedModel'
+      properties:
+        externalId:
+          title: Salesforce Id
+          type: string
+        isActive:
+          title: Active?
+          type: boolean
+        properties:
+          $ref: '#/components/schemas/SfProductItem'
+        flowId:
+          title: Flow
+          type: string
+        objectStatusId:
+          title: Object Status
+          type: string
+      description: 'Product: Synced Salesforce Object'
+    ProductItem-indexed-fields:
+      title: 'Product: Synced Salesforce Object: Filterable Fields'
+      enum:
+        - _id
+        - '#text'
+        - entityId
+        - externalId
+        - isActive
+        - name
+        - properties_uom
+      type: string
+      description: 'Filterable fields for Product: Synced Salesforce Object'
+    ProductItem-fields:
+      title: 'Product: Synced Salesforce Object: Fields'
+      enum:
+        - _id
+        - description
+        - entityId
+        - externalId
+        - flowId
+        - isActive
+        - name
+        - objectStatusId
+        - properties
+        - properties_code
+        - properties_isActive
+        - properties_isDeleted
+        - properties_isLabor
+        - properties_name
+        - properties_notes
+        - properties_sku
+        - properties_uom
+      type: string
+      description: 'Fields for Product: Synced Salesforce Object'
+    ProductItem-condition:
+      title: 'Product: Synced Salesforce Object: Filter Condition'
+      type: object
+      properties:
+        fieldName:
+          $ref: '#/components/schemas/ProductItem-indexed-fields'
+        operator:
+          $ref: '#/components/schemas/api-pi-condition-operator'
+        value:
+          title: Value
+          description: Value to be used in the filter operation
+      description: 'Field Condition for Product: Synced Salesforce Object'
+    filter--ProductItem--request:
+      title: 'Product: Synced Salesforce Object: Filter Body'
+      type: object
+      properties:
+        top:
+          title: Top
+          minimum: 0
+          type: integer
+          description: Max Number of objects to return
+        skip:
+          title: Skip
+          minimum: 0
+          type: integer
+          description: Number of objects to skip
+        orderBy:
+          $ref: '#/components/schemas/ProductItem-indexed-fields'
+        reverseOrder:
+          title: Reverse Order
+          type: boolean
+          description: Order By in Reverse Order (Descending)
+        fields:
+          title: Fields to return
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductItem-fields'
+          description: List of fields to return
+        criteria:
+          title: Filter Criteria
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductItem-condition'
+          description: Conditions to be used to filter objects
+      description: 'Request Body to filter Product: Synced Salesforce Object'
+    filter--ProductItem--response:
+      title: 'Product: Synced Salesforce Object: Filter Response'
+      type: array
+      items:
+        $ref: '#/components/schemas/ProductItem'
+      description: 'Response Body to filter Product: Synced Salesforce Object'
+    Project:
+      title: 'Project: Synced Salesforce Object'
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EntityOwnedModel'
+      properties:
+        externalId:
+          title: Salesforce Id
+          type: string
+        properties:
+          $ref: '#/components/schemas/SfWorkOrder'
+        objectStatusId:
+          title: Object Status
+          type: string
+      description: 'Project: Synced Salesforce Object'
+    update--Project--request:
+      title: 'Project: Synced Salesforce Object: Update Body'
+      type: object
+      properties:
+        properties:
+          $ref: '#/components/schemas/update--SfWorkOrder--request'
+      description: 'Request Body to Update Project: Synced Salesforce Object'
+    create--Project--request:
+      title: 'Project: Synced Salesforce Object: Create Body'
+      type: object
+      properties:
+        properties:
+          $ref: '#/components/schemas/create--SfWorkOrder--request'
+      description: 'Request Body to Create Project: Synced Salesforce Object'
+    Project-indexed-fields:
+      title: 'Project: Synced Salesforce Object: Filterable Fields'
+      enum:
+        - _id
+        - '#text'
+        - entityId
+        - name
+        - properties_createdDate
+        - properties_customerExternalId
+        - properties_floorplanId
+        - properties_inspectionVideoId
+        - properties_leadExternalId
+        - properties_status
+      type: string
+      description: 'Filterable fields for Project: Synced Salesforce Object'
+    Project-fields:
+      title: 'Project: Synced Salesforce Object: Fields'
+      enum:
+        - _id
+        - description
+        - entityId
+        - externalId
+        - name
+        - objectStatusId
+        - properties
+        - properties_address
+        - properties_city
+        - properties_createdDate
+        - properties_customerExternalId
+        - properties_customerNotes
+        - properties_debriefNotes
+        - properties_description
+        - properties_externalId
+        - properties_floorplanId
+        - properties_inspectionNotes
+        - properties_inspectionVideoId
+        - properties_leadExternalId
+        - properties_name
+        - properties_notes
+        - properties_postalCode
+        - properties_projectNumber
+        - properties_state
+        - properties_status
+      type: string
+      description: 'Fields for Project: Synced Salesforce Object'
+    Project-condition:
+      title: 'Project: Synced Salesforce Object: Filter Condition'
+      type: object
+      properties:
+        fieldName:
+          $ref: '#/components/schemas/Project-indexed-fields'
+        operator:
+          $ref: '#/components/schemas/api-pi-condition-operator'
+        value:
+          title: Value
+          description: Value to be used in the filter operation
+      description: 'Field Condition for Project: Synced Salesforce Object'
+    filter--Project--request:
+      title: 'Project: Synced Salesforce Object: Filter Body'
+      type: object
+      properties:
+        top:
+          title: Top
+          minimum: 0
+          type: integer
+          description: Max Number of objects to return
+        skip:
+          title: Skip
+          minimum: 0
+          type: integer
+          description: Number of objects to skip
+        orderBy:
+          $ref: '#/components/schemas/Project-indexed-fields'
+        reverseOrder:
+          title: Reverse Order
+          type: boolean
+          description: Order By in Reverse Order (Descending)
+        fields:
+          title: Fields to return
+          type: array
+          items:
+            $ref: '#/components/schemas/Project-fields'
+          description: List of fields to return
+        criteria:
+          title: Filter Criteria
+          type: array
+          items:
+            $ref: '#/components/schemas/Project-condition'
+          description: Conditions to be used to filter objects
+      description: 'Request Body to filter Project: Synced Salesforce Object'
+    filter--Project--response:
+      title: 'Project: Synced Salesforce Object: Filter Response'
+      type: array
+      items:
+        $ref: '#/components/schemas/Project'
+      description: 'Response Body to filter Project: Synced Salesforce Object'
+    SfCustomer:
+      title: 'Customer: Salesforce Object'
+      type: object
+      properties:
+        externalId:
+          title: Customer ID
+          type: string
+        name:
+          title: Customer Name
+          type: string
+        address:
+          title: Billing Street
+          type: string
+        city:
+          title: Billing City
+          type: string
+        state:
+          title: Billing State/Province
+          type: string
+        postalCode:
+          title: Billing Zip/Postal Code
+          type: string
+        country:
+          title: Billing Country
+          type: string
+        phone:
+          title: Customer Phone
+          type: string
+          format: phone
+        fax:
+          title: Customer Fax
+          type: string
+          format: phone
+        accountNumber:
+          title: Customer Number
+          type: string
+        description:
+          title: Customer Description
+          type: string
+        lastModifiedDate:
+          title: Last Modified Date
+          type: string
+          format: date-time
+        leadSource:
+          title: Customer Source
+          enum:
+            - '1000'
+            - '1001'
+            - '1036'
+            - '1037'
+            - '1039'
+            - '1059'
+            - '1060'
+            - '1061'
+            - '1099'
+            - '1100'
+            - '1101'
+            - '1102'
+            - '1104'
+            - '1115'
+            - '1120'
+            - '1123'
+            - '1139'
+            - '1140'
+            - '1141'
+            - '1142'
+            - '1146'
+            - '1154'
+            - '1156'
+            - '1157'
+            - '1158'
+            - '1159'
+            - '1160'
+            - '1161'
+            - '1162'
+            - '1163'
+            - '1164'
+            - '1165'
+            - '1166'
+            - '1167'
+            - '1168'
+            - '1169'
+            - '1170'
+            - '1171'
+            - '1172'
+            - '1173'
+            - '1174'
+            - '1175'
+            - '1176'
+            - '1182'
+            - '1183'
+            - '1184'
+            - '1186'
+            - '1187'
+            - '1188'
+            - '1200'
+            - '1201'
+            - '1202'
+            - '1203'
+            - '1204'
+            - '1205'
+            - '1320'
+            - '1321'
+            - '1322'
+            - '1326'
+            - '1327'
+            - '1328'
+            - '1329'
+            - '1330'
+            - '1331'
+            - '1332'
+            - '1333'
+            - '1334'
+            - '1335'
+            - '1336'
+            - '1504'
+            - '1505'
+            - '1507'
+            - '1508'
+            - '1509'
+            - '2000'
+            - '2001'
+            - '2002'
+            - '2003'
+            - '2004'
+            - '2005'
+            - '2006'
+            - '2007'
+            - '2008'
+            - '2009'
+            - '2010'
+            - '2011'
+            - '2012'
+            - '2013'
+            - '2014'
+            - '2015'
+            - '2016'
+            - '2017'
+            - '2018'
+            - '2019'
+            - '2022'
+            - '2023'
+            - '2024'
+          type: string
+        email2:
+          title: Additional Email
+          type: string
+          format: email
+        email3:
+          title: Additional Email 2
+          type: string
+          format: email
+        email:
+          title: Main Email
+          type: string
+          format: email
+        mobilePhone:
+          title: Mobile
+          type: string
+          format: phone
+        phone3:
+          title: Additional Phone
+          type: string
+          format: phone
+        addressDescription:
+          title: Address Description
+          type: string
+        callInstructions:
+          title: Call Instructions
+          enum:
+            - DO NOT CALL
+            - No Restrictions
+          type: string
+        emailInstructions:
+          title: E-mail Instructions
+          enum:
+            - DO NOT SEND
+            - No Restrictions
+          type: string
+        notes:
+          title: Notes
+          type: string
+        preferredMethodOfContact:
+          title: Preferred method of contact
+          enum:
+            - Cell Phone
+            - E-mail
+            - Home Phone
+            - Work Phone
+          type: string
+        phone2:
+          title: Additional Phone 2
+          type: string
+          format: phone
+        leadId:
+          title: Lead
+          type: string
+        projectNotes:
+          title: Project Notes
+          type: string
+      description: 'Customer: Salesforce Object'
+    update--SfCustomer--request:
+      title: 'Customer: Salesforce Object: Update Body'
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          title: Customer Name
+          type: string
+        address:
+          title: Billing Street
+          type: string
+        city:
+          title: Billing City
+          type: string
+        state:
+          title: Billing State/Province
+          type: string
+        postalCode:
+          title: Billing Zip/Postal Code
+          type: string
+        country:
+          title: Billing Country
+          type: string
+        phone:
+          title: Customer Phone
+          type: string
+          format: phone
+        fax:
+          title: Customer Fax
+          type: string
+          format: phone
+        description:
+          title: Customer Description
+          type: string
+        leadSource:
+          title: Customer Source
+          enum:
+            - '1000'
+            - '1001'
+            - '1036'
+            - '1037'
+            - '1039'
+            - '1059'
+            - '1060'
+            - '1061'
+            - '1099'
+            - '1100'
+            - '1101'
+            - '1102'
+            - '1104'
+            - '1115'
+            - '1120'
+            - '1123'
+            - '1139'
+            - '1140'
+            - '1141'
+            - '1142'
+            - '1146'
+            - '1154'
+            - '1156'
+            - '1157'
+            - '1158'
+            - '1159'
+            - '1160'
+            - '1161'
+            - '1162'
+            - '1163'
+            - '1164'
+            - '1165'
+            - '1166'
+            - '1167'
+            - '1168'
+            - '1169'
+            - '1170'
+            - '1171'
+            - '1172'
+            - '1173'
+            - '1174'
+            - '1175'
+            - '1176'
+            - '1182'
+            - '1183'
+            - '1184'
+            - '1186'
+            - '1187'
+            - '1188'
+            - '1200'
+            - '1201'
+            - '1202'
+            - '1203'
+            - '1204'
+            - '1205'
+            - '1320'
+            - '1321'
+            - '1322'
+            - '1326'
+            - '1327'
+            - '1328'
+            - '1329'
+            - '1330'
+            - '1331'
+            - '1332'
+            - '1333'
+            - '1334'
+            - '1335'
+            - '1336'
+            - '1504'
+            - '1505'
+            - '1507'
+            - '1508'
+            - '1509'
+            - '2000'
+            - '2001'
+            - '2002'
+            - '2003'
+            - '2004'
+            - '2005'
+            - '2006'
+            - '2007'
+            - '2008'
+            - '2009'
+            - '2010'
+            - '2011'
+            - '2012'
+            - '2013'
+            - '2014'
+            - '2015'
+            - '2016'
+            - '2017'
+            - '2018'
+            - '2019'
+            - '2022'
+            - '2023'
+            - '2024'
+          type: string
+        email2:
+          title: Additional Email
+          type: string
+          format: email
+        email3:
+          title: Additional Email 2
+          type: string
+          format: email
+        email:
+          title: Main Email
+          type: string
+          format: email
+        mobilePhone:
+          title: Mobile
+          type: string
+          format: phone
+        phone3:
+          title: Additional Phone
+          type: string
+          format: phone
+        addressDescription:
+          title: Address Description
+          type: string
+        callInstructions:
+          title: Call Instructions
+          enum:
+            - DO NOT CALL
+            - No Restrictions
+          type: string
+        emailInstructions:
+          title: E-mail Instructions
+          enum:
+            - DO NOT SEND
+            - No Restrictions
+          type: string
+        notes:
+          title: Notes
+          type: string
+        preferredMethodOfContact:
+          title: Preferred method of contact
+          enum:
+            - Cell Phone
+            - E-mail
+            - Home Phone
+            - Work Phone
+          type: string
+        phone2:
+          title: Additional Phone 2
+          type: string
+          format: phone
+        projectNotes:
+          title: Project Notes
+          type: string
+      description: 'Request Body to Update Customer: Salesforce Object'
+    SfExternalLink:
+      title: 'ExternalLink: Salesforce Object'
+      type: object
+      properties:
+        externalId:
+          title: Record ID
+          type: string
+        IsDeleted:
+          title: Deleted
+          type: boolean
+          example: false
+        name:
+          title: ExternalLink Number
+          type: string
+        description:
+          title: Description
+          type: string
+        floorplanExternalId:
+          title: Floor Plan Name
+          type: string
+        roomExternalId:
+          title: Room Name
+          type: string
+        relatedObjectType:
+          title: Related Object Type
+          enum:
+            - Door Video
+            - Floor Plan Video
+            - Inspection video
+            - Note Video
+            - Opening
+            - Pre close voice record
+            - Presentation voice record
+            - Room
+            - Signature
+            - Takeout
+            - Takeout Video
+            - Warmup voice record
+          type: string
+        type:
+          title: Type
+          enum:
+            - Audio
+            - Authorized_Signature
+            - Customer_Signature
+            - Measure Square
+            - Photo
+            - Proposal PDF
+            - Video
+          type: string
+        url:
+          title: URL
+          type: string
+          format: uri
+        projectExternalId:
+          title: Project Name
+          type: string
+        proposalExternalId:
+          title: Option Name
+          type: string
+        isVideo:
+          title: IsVideo
+          type: string
+      description: 'ExternalLink: Salesforce Object'
+    update--SfExternalLink--request:
+      title: 'ExternalLink: Salesforce Object: Update Body'
+      type: object
+      description: 'Request Body to Update ExternalLink: Salesforce Object'
+    SfMaterialAssignment:
+      title: 'Material Assignment: Salesforce Object'
+      type: object
+      properties:
+        externalId:
+          title: Record ID
+          type: string
+        isDeleted:
+          title: Deleted
+          type: boolean
+          example: false
+        name:
+          title: Material Assignment Number
+          type: string
+        proposalExternalId:
+          title: Parent Option
+          type: string
+        area:
+          title: Area
+          type: integer
+        perimeter:
+          title: Perimeter
+          type: integer
+        roomExternalId:
+          title: Room
+          type: string
+      description: 'Material Assignment: Salesforce Object'
+    SfProposalLine:
+      title: 'Option Line Item: Salesforce Object'
+      type: object
+      properties:
+        externalId:
+          title: Record ID
+          type: string
+        isDeleted:
+          title: Deleted
+          type: boolean
+          example: false
+        sku:
+          title: Option Line Item Name
+          type: string
+        proposalExternalId:
+          title: Option
+          type: string
+        quantity:
+          title: Adjusted Quantity
+          type: integer
+        description:
+          title: Description
+          type: string
+        margin:
+          title: Margin
+          type: integer
+        cost1:
+          title: Cost1
+          type: number
+        wasteFactor:
+          title: Real Waste
+          type: integer
+        totalPrice:
+          title: Total Before Tax
+          type: number
+        totalCost:
+          title: Total Cost
+          type: number
+        unitPrice:
+          title: Unit Price
+          type: number
+        unitCost:
+          title: Unit Cost
+          type: number
+        isDiscount:
+          title: IsDiscountItem
+          type: boolean
+        itemExternalId:
+          title: Product
+          type: string
+        cost2:
+          title: Cost2
+          type: number
+        price1:
+          title: Price1
+          type: number
+        price2:
+          title: Price2
+          type: number
+        index:
+          title: Index
+          type: integer
+      description: 'Option Line Item: Salesforce Object'
+    SfProposal:
+      title: 'Option: Salesforce Object'
+      type: object
+      properties:
+        externalId:
+          title: Record ID
+          type: string
+        isDeleted:
+          title: Deleted
+          type: boolean
+          example: false
+        name:
+          title: Option Name
+          type: string
+        createdDate:
+          title: Created Date
+          type: string
+          format: date-time
+        projectExternalId:
+          title: Project
+          type: string
+        totalPrice:
+          title: Total After Discount Before Tax
+          type: number
+        totalCost:
+          title: Total Cost
+          type: number
+        totalTax:
+          title: Total Tax
+          type: number
+        proposalNumber:
+          title: Option Number
+          type: integer
+        status:
+          title: Option Status
+          enum:
+            - Canceled
+            - Dead
+            - Estimated
+            - Landed
+            - Landed in InspireNet
+            - Paid
+            - Produced
+            - Scheduled
+          type: string
+          example: Estimated
+        customerExternalId:
+          title: Customer Name
+          type: string
+        landedDate:
+          title: Landed Date
+          type: string
+          format: date
+        producedDate:
+          title: Produced Date
+          type: string
+          format: date
+        notes:
+          title: Notes
+          type: string
+      description: 'Option: Salesforce Object'
+    SfRoom:
+      title: 'Room: Salesforce Object'
+      type: object
+      properties:
+        externalId:
+          title: Record ID
+          type: string
+        isDeleted:
+          title: Deleted
+          type: boolean
+          example: false
+        floorplanExternalId:
+          title: FloorPlan
+          type: string
+        takeoutArea:
+          title: AreaTakeout
+          type: integer
+        area:
+          title: Area
+          type: integer
+        name:
+          title: Name
+          type: string
+        notes:
+          title: Notes
+          type: string
+        perimeter:
+          title: Perimeter
+          type: integer
+        type:
+          title: RoomType
+          enum:
+            - Free Draw
+            - Square
+            - Square Ft
+            - Stairs
+          type: string
+      description: 'Room: Salesforce Object'
+    SfSectionLine:
+      title: 'Section Line Item: Salesforce Object'
+      type: object
+      properties:
+        isDeleted:
+          title: Deleted
+          type: boolean
+          example: false
+        sku:
+          title: Section Line Item Name
+          type: string
+        sectionExternalId:
+          title: Section
+          type: string
+        quantity:
+          title: Adjusted Quantity
+          type: integer
+        description:
+          title: Description
+          type: string
+        margin:
+          title: Margin
+          type: integer
+        cost1:
+          title: Cost1
+          type: number
+        wasteFactor:
+          title: Real Waste
+          type: integer
+        taxFactor:
+          title: Tax Factor
+          type: integer
+        totalTax:
+          title: Tax Price
+          type: number
+        totalPrice:
+          title: Total Before Tax
+          type: number
+        totalCost:
+          title: Total Cost
+          type: number
+        unitPrice:
+          title: Unit Price
+          type: number
+        unitCost:
+          title: Unit Cost
+          type: number
+        isDiscount:
+          title: IsDiscountItem
+          type: boolean
+        itemExternalId:
+          title: Product
+          type: string
+        cost2:
+          title: Cost2
+          type: number
+        price1:
+          title: Price1
+          type: number
+        price2:
+          title: Price2
+          type: number
+        index:
+          title: Index
+          type: integer
+      description: 'Section Line Item: Salesforce Object'
+    SfSection:
+      title: 'Section: Salesforce Object'
+      type: object
+      properties:
+        externalId:
+          title: Record ID
+          type: string
+        proposalExternalId:
+          title: Parent Option
+          type: string
+        area:
+          title: Area
+          type: integer
+        name:
+          title: Name
+          type: string
+        perimeter:
+          title: Perimeter
+          type: integer
+        wasteFactor:
+          title: Waste Factor
+          type: integer
+      description: 'Section: Salesforce Object'
+    update--SfSection--request:
+      title: 'Section: Salesforce Object: Update Body'
+      type: object
+      description: 'Request Body to Update Section: Salesforce Object'
+    SfLead:
+      title: 'Lead: Salesforce Object'
+      type: object
+      properties:
+        address:
+          title: Street
+          type: string
+        phone:
+          title: Phone
+          type: string
+          format: phone
+        email:
+          title: Email
+          type: string
+          format: email
+        customer:
+          $ref: '#/components/schemas/Customer'
+      description: 'Lead: Salesforce Object'
+    update--SfLead--request:
+      title: 'Lead: Salesforce Object: Update Body'
+      type: object
+      description: 'Request Body to Update Lead: Salesforce Object'
+    SfProductItem:
+      title: 'Product: Salesforce Object'
+      type: object
+      properties:
+        name:
+          title: Product Name
+          type: string
+        code:
+          title: Product Code
+          type: string
+        isActive:
+          title: Active
+          type: boolean
+          example: false
+        uom:
+          title: Quantity Unit Of Measure
+          enum:
+            - BOX
+            - EA
+            - FT
+            - LF
+            - RL
+            - SQFT
+            - SQYD
+          type: string
+        isDeleted:
+          title: Deleted
+          type: boolean
+          example: false
+        sku:
+          title: Product SKU
+          type: string
+        isLabor:
+          title: Labor Item
+          type: boolean
+          example: false
+        notes:
+          title: Notes
+          type: string
+      description: 'Product: Salesforce Object'
+    SfWorkOrder:
+      title: 'Project: Salesforce Object'
+      type: object
+      properties:
+        externalId:
+          title: Project ID
+          type: string
+        projectNumber:
+          title: Project Number
+          type: string
+        createdDate:
+          title: Created Date
+          type: string
+          format: date-time
+        customerExternalId:
+          title: Customer
+          type: string
+        address:
+          title: Street
+          type: string
+        city:
+          title: City
+          type: string
+        state:
+          title: State/Province
+          type: string
+        postalCode:
+          title: Zip/Postal Code
+          type: string
+        description:
+          title: Description
+          type: string
+        status:
+          title: Status
+          enum:
+            - Aged Archived
+            - Dead
+            - Estimated
+            - Landed
+            - New
+            - Paid
+            - Pending Proposal
+            - Produced
+            - Restored
+            - Scheduled
+          type: string
+          example: New
+        customerNotes:
+          title: Customer Notes
+          type: string
+        floorplanId:
+          title: Floor Plan
+          type: string
+        inspectionNotes:
+          title: Inspection Notes
+          type: string
+        inspectionVideoId:
+          title: Inspection Video
+          type: string
+        leadExternalId:
+          title: Lead
+          type: string
+        name:
+          title: Project Name
+          type: string
+        notes:
+          title: Notes
+          type: string
+        debriefNotes:
+          title: DebriefNotes
+          type: string
+      description: 'Project: Salesforce Object'
+    update--SfWorkOrder--request:
+      title: 'Project: Salesforce Object: Update Body'
+      type: object
+      properties:
+        address:
+          title: Street
+          type: string
+        city:
+          title: City
+          type: string
+        state:
+          title: State/Province
+          type: string
+        postalCode:
+          title: Zip/Postal Code
+          type: string
+        description:
+          title: Description
+          type: string
+        customerNotes:
+          title: Customer Notes
+          type: string
+        inspectionNotes:
+          title: Inspection Notes
+          type: string
+        name:
+          title: Project Name
+          type: string
+        notes:
+          title: Notes
+          type: string
+        debriefNotes:
+          title: DebriefNotes
+          type: string
+      description: 'Request Body to Update Project: Salesforce Object'
+    create--SfWorkOrder--request:
+      title: 'Project: Salesforce Object: Create Body'
+      type: object
+      description: 'Request Body to Create Project: Salesforce Object'
+    # UnlayerTemplate:
+    #   title: UnlayerTemplate
+    #   description: Object Type not found
+    # sf_WorkOrder:
+    #   title: sf_WorkOrder
+    #   description: Object Type not found
+    # ObjectStatus:
+    #   title: ObjectStatus
+    #   description: Object Type not found
+    # SfLeadSource:
+    #   title: SfLeadSource
+    #   description: Object Type not found
+    # LeadType:
+    #   title: LeadType
+    #   description: Object Type not found
+    # Flow:
+    #   title: Flow
+    #   description: Object Type not found
+    # Integration:
+    #   title: Integration
+    #   description: Object Type not found
+    # salesforce.INET_FloorPlan__c:
+    #   title: salesforce.INET_FloorPlan__c
+    #   description: Object Type not found
+  securitySchemes:
+    ProductionIDP:
+      type: openIdConnect
+      description: OpenID Connect
+      openIdConnectUrl: https://idp.inspirenet.cloud/.well-known/openid-configuration
+    TestIDP:
+      type: openIdConnect
+      description: OpenID Connect
+      openIdConnectUrl: https://idp.fci.cloud/.well-known/openid-configuration
+tags:
+  - name: Generic
+    description: Generic Actions
+  - name: Appointment
+    description: Appointment
+  - name: Entity
+    description: Entity
+  - name: Lead
+    description: Lead
+  - name: Organization
+    description: Organization
+  - name: User
+    description: User
+  - name: salesforce
+    description: salesforce Namespace

@@ -2,5 +2,16 @@
 
     "disallowAdditionalPropertiesIfNotPresent": false,
     "legacyDiscriminatorBehavior": false,
-    "serializationLibrary": "json_serializable"
+    "serializationLibrary": "json_serializable",
+    "dateLibrary": "core",
+    "_dateLibrary": "timemachine",
+    "_ensureUniqueParams": true,
+    "enumUnknownDefaultCase": false,
+    "equalityCheckMethod": "default",
+    "finalProperties": true,
+    "prependFormOrBodyParameters": true,
+    "sortModelPropertiesByRequiredFlag": true,
+    "sortParamsByRequiredFlag": true,
+    "useEnumExtension": false,
+    "generateAliasAsModel": false
 }
