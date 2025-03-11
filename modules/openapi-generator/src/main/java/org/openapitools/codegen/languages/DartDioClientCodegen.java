@@ -625,6 +625,11 @@ public class DartDioClientCodegen extends AbstractDartCodegen {
 
                     for (MappedModel mm: discriminator.getMappedModels()) {
                         CodegenModel model = mm.getModel();
+                        if (model==null) {
+                            LOGGER.error("Couldn't get model '{}' when processing discriminator.", mm.getMappingName());
+                            continue;
+                        }
+
                         if (model.allOf.contains(cm.getName())) {
                             // it is direct descendent, add to mappping 
                             newDiscriminator.getMapping().put(mm.getMappingName(), mm.getModelName());

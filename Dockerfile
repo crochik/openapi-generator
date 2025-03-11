@@ -1,6 +1,6 @@
 FROM maven:3-eclipse-temurin-17
 
-ENV GEN_DIR /opt/openapi-generator
+ENV GEN_DIR=/opt/openapi-generator
 WORKDIR ${GEN_DIR}
 VOLUME  ${MAVEN_HOME}/.m2/repository
 
