@@ -601,6 +601,16 @@ public class DartDioClientCodegen extends AbstractDartCodegen {
         adaptToDartInheritance(objs);
         syncRootTypesWithInnerVars(objs);
 
+        // build dictionary with all models
+        Map<String, CodegenModel> models = new HashMap<String, CodegenModel>();
+        for (ModelsMap entry : objs.values()) {
+            for (ModelMap mo : entry.getModels()) {
+                CodegenModel cm = mo.getModel();
+                if (cm == null) continue;
+                models.put(cm.getName(), cm);
+            }
+        }
+
         /**
          * Filter discriminator mapping
          * Since the same instance of the discriminator is shared by all descendent models,
@@ -628,16 +638,14 @@ public class DartDioClientCodegen extends AbstractDartCodegen {
                             continue;
                         }
 
-                        // ----
-                        // TODO: replace this with something that will do it recursively
-                        // ...
-                        model.imports.add(cm.getName());
-                        model.imports.addAll(cm.allOf);
-                        model.imports.addAll(cm.oneOf);
-                        model.imports.addAll(cm.anyOf);
-                        // -----
+                        // calculate recursively all parents
+                        Map<String, CodegenModel> parents = new HashMap<String, CodegenModel>();
+                        addAllParents(models, parents, model);
 
-                        if (model.allOf.contains(cm.getName())) {
+                        // add all parents to imports
+                        model.imports.addAll(parents.keySet());
+
+                        if (parents.containsKey(cm.getName())) {
                             // it is direct descendent, add to mappping 
                             newDiscriminator.getMapping().put(mm.getMappingName(), mm.getModelName());
                             CodegenDiscriminator.MappedModel cmm = new CodegenDiscriminator.MappedModel(mm.getMappingName(), mm.getModelName());
@@ -645,10 +653,6 @@ public class DartDioClientCodegen extends AbstractDartCodegen {
                             newDiscriminator.getMappedModels().add(cmm);
                         }
                     }
-
-                    // TODO: filter out imports for other models not used 
-                    // but most likely there is also a better place for that as well 
-                    // ...
                 }
             }
         }
@@ -673,6 +677,19 @@ public class DartDioClientCodegen extends AbstractDartCodegen {
         }
 
         return objs;
+    }
+    
+    private void addAllParents(Map<String, CodegenModel> allModels, Map<String, CodegenModel> parents, CodegenModel model) {
+        for (String modelName : model.allOf) {
+            CodegenModel parent = allModels.get(modelName);
+            if (parent==null) {
+                LOGGER.error("Couldn't find model '{}' when processing discriminator.", modelName);
+                continue;
+            }
+
+            parents.put(parent.getName(), parent);
+            addAllParents(allModels, parents, parent);
+        }
     }
 
     @Override
