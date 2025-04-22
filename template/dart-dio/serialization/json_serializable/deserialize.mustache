@@ -26,12 +26,13 @@ final _regMap = RegExp(r'^Map<String,(.*)>$');
           return (value is double ? value : double.parse('$value')) as ReturnType;
         {{#models}}
           {{#model}}
-        case '{{{classname}}}':
             {{#isEnum}}
+        // case '{{{classname}}}':
           {{#native_serialization}}return {{{classname}}}TypeTransformer().decode(value);{{/native_serialization}}
           {{#json_serializable}} return _$enumDecode(_${{{classname}}}EnumMap, value);{{/json_serializable}}
             {{/isEnum}}
             {{^isEnum}}
+        case '{{{classname}}}':
           return {{{classname}}}.fromJson(value as Map<String, dynamic>) as ReturnType;
             {{/isEnum}}
           {{/model}}
